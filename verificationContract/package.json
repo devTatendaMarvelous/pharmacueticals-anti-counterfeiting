@@ -1,0 +1,23 @@
+{
+  "name": "verificationcontract",
+  "version": "1.0.0",
+  "description": "verification for pharmacueticals",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "verify"
+  ],
+  "author": "Nicole Vimbai Muzvidziwa",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@nomiclabs/hardhat-ganache": "^2.0.1",
+    "@nomiclabs/hardhat-waffle": "^2.0.6",
+    "chai": "^5.0.0",
+    "ethereum-waffle": "^4.0.10",
+    "ethers": "^5.7.2",
+    "hardhat": "^2.19.4"
+  }
+}
