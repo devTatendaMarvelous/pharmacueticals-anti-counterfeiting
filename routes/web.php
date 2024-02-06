@@ -1,8 +1,9 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
-
+Route::get('/get-product/{id}', fn($id)=> response()->json(Product::find($id)));
 
 Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () {
 
@@ -105,9 +106,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::controller(FrontendController::class)->group(function () {
         // Route::post('/families/search', 'search')->name('families.search');
+
+        Route::get('/check-verification', 'check');
         Route::get('/', 'index');
         Route::get('/agent/{id}', 'agent')->name('agent');
-        Route::get('/branch/{id}', 'branch')->name('category');
+        Route::get('/category/{id}', 'branch')->name('category');
         Route::get('/cart', 'cart')->name('cart');
         Route::get('/search', 'search')->name('search');
         Route::get('/agentsFilter/{id}', 'agentsFilter')->name('agents.types');

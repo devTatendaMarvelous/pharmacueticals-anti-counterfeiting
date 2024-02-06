@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- Mirrored from themes.pixelstrap.com/fastkart/front-end// by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 11 Jun 2023 02:06:14 GMT -->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +10,6 @@
     <meta name="author" content="Fastkart">
     <link rel="icon" href="{{asset('logo.png')}}" type="image/x-icon">
     <title>Anti Counterfeit</title>
-
 
     <!-- bootstrap css -->
     <link id="rtl-link" rel="stylesheet" type="text/css" href="{{asset('frontend/css/vendors/bootstrap.css')}}">
@@ -41,7 +38,7 @@
 	<script src="{{ URL::to('toastr.min.js') }}"></script>
 </head>
 
-<body class="bg-effect">
+<body class="bg-effect" style="background-image: url('{{asset('landing-bg.jpg')}}');background-repeat: no-repeat;background-size: cover;min-height: auto;">
 
     <!-- Loader Start -->
  <div class="fullpage-loader">
@@ -141,17 +138,6 @@
                                             </div>
                                         </div>
                                     </li>
-                                    {{-- <li class="right-side">
-                                        <a href="contact-us.html" class="delivery-login-box">
-                                            <div class="delivery-icon">
-                                                <i data-feather="phone-call"></i>
-                                            </div>
-                                            <div class="delivery-detail">
-                                                <h6>24/7 Delivery</h6>
-                                                <h5>+91 888 104 2340</h5>
-                                            </div>
-                                        </a>
-                                    </li> --}}
 
                                     <li class="right-side">
                                         <div class="onhover-dropdown header-badge">
@@ -165,24 +151,24 @@
                                     </li>
                                     <li class="right-side ">
                                         <div class="delivery-login-box">
+                                            <div class="delivery-icon  ">
+                                                <a href="/check-verification" class="btn "style="background:  #1c5b77; color:#fff; margin-right:5px;">Check Verification</a>
+                                            </div>
                                             @guest
                                             <div class="delivery-icon  ">
-                                                <a href="/login" class="btn "style="background:  #c13fe9; color:#fff; margin-right:5px;">Log In</a>
+                                                <a href="/login" class="btn "style="background:  #1c5b77; color:#fff; margin-right:5px;">Log In</a>
                                             </div>
                                             <div class="delivery-detail ">
-                                                <a href="/register" class="btn "style="background:  #c13fe9; color:#fff;">Register</a>
+                                                <a href="/register" class="btn "style="background:  #1c5b77; color:#fff;">Register</a>
                                             </div>
                                                 @else
-                                                <h3 class="btn" style="background:  #c13fe9; color:#fff;margin-right:5px;">{{ Auth::user()->name }}</h3>
+                                                <h3 class="btn" style="background:  #1c5b77; color:#fff;margin-right:5px;">{{ Auth::user()->name }}</h3>
 
-                                        <form action="{{ route('logout') }}" method="POST">
-                                                        @csrf
-                                                <button type="submit" class="btn " style="background:  #c13fe9; color:#fff;"><i data-feather="log-out"></i>
-                                            <span>Log out</span></button>
-                                        </form>
-
-
-
+                                                <form action="{{ route('logout') }}" method="POST">
+                                                                @csrf
+                                                        <button type="submit" class="btn " style="background:  #1c5b77; color:#fff;"><i data-feather="log-out"></i>
+                                                    <span>Log out</span></button>
+                                                </form>
                                             @endguest
 
                                         </div>
@@ -248,7 +234,7 @@
 
             <div class="sub-footer section-small-space">
                 <div class="reserve">
-                    <h6 class="text-content">Copyright 2023 © Online Market Place System by {{ config('app.name') }}</h6>
+                    <h6 class="text-content">Copyright {{date('Y')}}  ©  {{ config('app.name') }} by Nicole</h6>
                 </div>
 
                 <div class="payment">
@@ -359,5 +345,4 @@
 </body>
 
 
-<!-- Mirrored from themes.pixelstrap.com/fastkart/front-end// by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 11 Jun 2023 02:10:09 GMT -->
 </html>

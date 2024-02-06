@@ -2,6 +2,7 @@
 
 use App\Models\Cart;
 use App\Models\Notification;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
@@ -23,7 +24,11 @@ function address(){
  return Crypt::decrypt( auth()->user()->agent->blockchain_address);
 }
 function privateKey(){
-    return Crypt::decrypt(  auth()->user()->agent->blockchain_private_key);
+    if (auth()->check()&&auth()->user()->type=='Agent'){
+        return Crypt::decrypt(  auth()->user()->agent->blockchain_private_key);
+    }else{
+        return '';
+    }
 }
 function contractAddress(){
     $path=base_path().'\verificationContract\contractsData\VerifyProduct-address.json';
@@ -32,4 +37,7 @@ function contractAddress(){
 function contractABI(){
     $path=base_path().'\verificationContract\contractsData\VerifyProduct.json';
    return json_encode(json_decode(file_get_contents($path),true));
+}
+function getProduct($id){
+    return json_encode(json_decode(Product::find($id),true));
 }

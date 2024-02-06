@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
     <!-- Banner Section Start -->
     <section class="banner-section container ratio_60 wow fadeInUp">
         <div class="title container pl-5">
@@ -13,7 +12,6 @@
         </div>
         <div class="container-fluid-lg">
             <div class="banner-slider">
-
             @forelse ($agents as $agent )
                 <div >
                     <div class="banner-contain hover-effect" >
@@ -28,22 +26,14 @@
                             </div>
                             <div class="banner-button text-white bg-success btn py-2 ">
                                     <h5 class="text-white">{{ $agent->name }}</h5> <br>
-
                             </div>
                         </a>
                     </div>
                 </div>
-
             @empty
-
             @endforelse
-
-
-
             </div>
         </div>
     </section>
     <!-- Banner Section End -->
-
-
 @endsection

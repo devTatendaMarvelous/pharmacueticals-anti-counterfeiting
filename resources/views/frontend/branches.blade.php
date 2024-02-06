@@ -41,42 +41,33 @@
 
                     <div class="section-b-space">
                         <div class="product-border border-row overflow-hidden">
-                            <div class="product-box-slider no-arrow">
+                            <div class="product-box-slider no-arrow p-3">
                                 @forelse ($products as $product )
-
                                 <div>
-                                    <div class="row m-0">
+                                    <div class="row m-0 p-1">
                                         <div class="col-12 px-0">
-                                            <div class="product-box card">
+                                            <div class="product-box card ">
                                                 <div class="product-image">
-                                                    <a href="product-left-thumbnail.html">
-                                                        <img src="{{ asset('storage/'.$product->product_photo) }}"
-                                                            class="img-fluid blur-up lazyload" alt="">
+                                                    <a href="javascript:void(0)">
+                                                        <img src="{{ asset('storage/'.$product->product_photo) }}" class="img-fluid blur-up lazyload" alt="{{ $product->product_name }}">
                                                     </a>
-
                                                 </div>
                                                 <div class="product-detail text-center">
-                                                    <a href="product-left-thumbnail.html">
+                                                    <a href="javascript:void(0)">
                                                         <h6 class="name">{{ $product->product_name }}</h6>
                                                     </a>
-
                                                     <h5 class="sold text-content">
                                                         <span class="theme-color price">${{$product->selling_price }}</span>
-
                                                     </h5>
-
                                                     <div class="product-rating mt-sm-2 mt-1">
                                                         <h6 class="theme-color text-center">Order Quantity</h6>
                                                     </div>
-
                                                     <div >
                                                         <form action="{{ route('carts.store',[$product->id]) }}" method="POST" class="d-flex justify-content-center row">
                                                                     @csrf
                                                             <input class="form-control mb-3 col-12 " type="number"
                                                                             name="quantity" value="1">
-
-                                                            <input type="submit" class="btn btn-success text-white col-12" style="background: #C13FE9;" value="Add To Cart"/>
-
+                                                            <input type="submit" class="btn btn-success text-white col-12" style="background: #1C5B77;" value="Add To Cart"/>
                                                         </form>
 
                                                     </div>

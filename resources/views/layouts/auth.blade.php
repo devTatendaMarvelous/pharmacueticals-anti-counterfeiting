@@ -10,11 +10,6 @@
     <link rel="icon" href="{{asset('assets/images/favicon/1.png')}}" type="image/x-icon">
     <title>Log In</title>
 
-    <!-- Google font -->
-    <link rel="preconnect" href="../../../fonts.gstatic.com/index.html">
-    <link
-        href="../../../fonts.googleapis.com/css25af9.css?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-        rel="stylesheet">
 
     <!-- bootstrap css -->
     <link id="rtl-link" rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/bootstrap.css')}}">
@@ -37,8 +32,27 @@
 </head>
 
 <body>
+<section class="log-in-section background-image-2 section-b-space">
+    <div class="container-fluid-lg w-100">
+        <div class="row">
+            <div class="col-xxl-6 col-xl-5 col-lg-6 d-lg-block d-none ms-auto">
+                <div class="image-contain">
+                    {{--                        <img src="{{ asset('assets/images/inner-page/log-in.png') }}" class="img-fluid" alt="">--}}
+                </div>
+            </div>
 
-  @yield('content')
+            <div class="col-xxl-4 col-xl-5 col-lg-6 col-sm-8 mx-auto">
+                <div class="log-in-box">
+
+
+                    @yield('content')
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- latest jquery-->
     <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>

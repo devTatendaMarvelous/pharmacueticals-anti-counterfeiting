@@ -4,7 +4,7 @@
         <div>
             <div class="logo-wrapper logo-wrapper-center">
                 <a href="/home" data-bs-original-title="" title="" >
-                    <img class="img-fluid for-white col-6" src="{{asset('logo.png')}}" style="max-width: 40%; margin-top: -30px;" alt="logo">
+                    <img class="img-fluid for-white col-6" src="{{asset('logo-white.png')}}"  alt="logo">
                 </a>
                 <div class="back-btn">
                     <i class="fa fa-angle-left"></i>
@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            <nav class="sidebar-main">
+            <nav class="sidebar-main pt-5">
                 <div class="left-arrow" id="left-arrow">
                     <i data-feather="arrow-left"></i>
                 </div>

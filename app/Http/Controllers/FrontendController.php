@@ -24,15 +24,16 @@ class FrontendController extends Controller
             return view('frontend.index')
                 ->with('agents', $agents)
                 ->with('cartItems', cartItems())
-                ->with('notifications',notifications());
+                ->with('notifications', notifications());
         } catch (\Exception $exception) {
             Toastr::error('An error occured while processing', 'error');
             return back();
         }
     }
+
     public function agentsFilter($id)
     {
-        try{
+        try {
             $agents = User::join('agents', 'agents.user_id', '=', 'users.id')
                 ->join('agent_types', 'agent_types.id', '=', 'agents.type_id')
                 ->where('agents.type_id', $id)->get(['users.name', 'users.email', 'users.photo', 'agent_types.type_name', 'agents.*']);
@@ -42,7 +43,7 @@ class FrontendController extends Controller
                 ->with('agents', $agents)
                 ->with('cartItems', $this->cartItems())
                 ->with('notifications', $this->notifications());
-            } catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             Toastr::error('An error occured while processing', 'error');
             return back();
         }
@@ -50,43 +51,39 @@ class FrontendController extends Controller
 
     function agent($id)
     {
-        try{
-            $categories=Category::all();
+        try {
+            $categories = Category::all();
             $products = Product::join('categories', 'categories.id', '=', 'products.category_id')
                 ->where('products.pharmacy_id', $id)
                 ->where('products.is_published', 1)
-                ->get(['categories.category_name',  'products.*']);
+                ->get(['categories.category_name', 'products.*']);
 
             return view('frontend.branches')
                 ->with('categories', $categories)
                 ->with('products', $products)
                 ->with('cartItems', cartItems())
                 ->with('notifications', notifications());
-            } catch (\Exception $exception) {
+        } catch (\Exception $exception) {
             Toastr::error('An error occured while processing', 'error');
             return back();
         }
     }
 
-    function   search(Request $request)
+    function search(Request $request)
     {
-        try{
-            dd('refactor branches');
-            $branches = Branch::all();
+        try {
+            $categories = Category::all();
             $products = Product::join('categories', 'categories.id', '=', 'products.category_id')
-                ->join('branches', 'branches.id', '=', 'products.branch_id')
-                ->join('users', 'users.id', '=', 'branches.agent_id')
                 ->where('products.product_name', 'like', '%' . $request->search . '%')
                 ->orWhere('products.product_description', 'like', '%' . $request->search . '%')
                 ->where('products.is_published', 1)
-                ->get(['categories.category_name', 'branches.branch_name', 'products.*']);
-
+                ->get(['categories.category_name', 'products.*']);
             return view('frontend.branches')
-                ->with('branches', $branches)
+                ->with('categories', $categories)
                 ->with('products', $products)
-                ->with('cartItems', $this->cartItems())
-                ->with('notifications', $this->notifications());
-            } catch (\Exception $exception) {
+                ->with('cartItems', cartItems())
+                ->with('notifications', notifications());
+        } catch (\Exception $exception) {
             Toastr::error('An error occured while processing', 'error');
             return back();
         }
@@ -95,27 +92,30 @@ class FrontendController extends Controller
 
     function branch($id)
     {
-        try{
-            $agent_id = Branch::find($id)->agent_id;
-            $branches = User::join('branches', 'branches.agent_id', '=', 'users.id')
-            ->where('branches.agent_id', $agent_id)
-            ->get(['users.name', 'branches.*']);
+        try {
+            $categories = Category::all();
             $products = Product::join('categories', 'categories.id', '=', 'products.category_id')
-                ->join('branches', 'branches.id', '=', 'products.branch_id')
-                ->join('users', 'users.id', '=', 'branches.agent_id')
-                ->where('products.branch_id', $id)
+                ->where('products.category_id', $id)
                 ->where('products.is_published', 1)
-                ->get(['categories.category_name', 'branches.branch_name', 'products.*']);
+                ->get(['categories.category_name', 'products.*']);
 
             return view('frontend.branches')
-                ->with('branches', $branches)
+                ->with('categories', $categories)
                 ->with('products', $products)
-                ->with('cartItems', $this->cartItems())
-                ->with('notifications', $this->notifications());
-        } catch (\Exception $exception) {
+                ->with('cartItems', cartItems())
+                ->with('notifications', notifications());
+
+        } catch (\Exception $e) {
             Toastr::error('An error occured while processing', 'error');
             return back();
         }
+
+    }
+
+    function check()
+    {
+        return view('frontend.check-verification')->with('cartItems', cartItems())
+            ->with('notifications', notifications());
 
     }
 }
