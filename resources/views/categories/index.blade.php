@@ -16,8 +16,8 @@
                     <div class="table-responsive table-product">
                         <table class="table all-package theme-table" id="table_id">
                             <thead>
-                                <tr>
-                                    <th>Category Icon</th>
+                                <tr class="text-left">
+
                                     <th>Created By</th>
                                     <th>Category Name</th>
                                     <th>Description</th>
@@ -29,17 +29,8 @@
                                 @forelse ($categories as $category)
                                     <tr>
                                         <td>
-                                            <div class="table-image">
-                                                <img src="{{ asset('storage/' . $category->category_icon) }}"
-                                                    class="img-fluid" alt="">
-                                            </div>
-                                        </td>
+                                               {{ $category->name }}
 
-                                        <td>
-                                            <div class="user-name">
-                                                <span>{{ $category->name }}</span>
-
-                                            </div>
                                         </td>
 
                                         <td>{{ $category->category_name }}</td>
@@ -93,19 +84,6 @@
                                                             <div class="col-sm-9">
                                                                 <textarea name="category_description" class="form-control" type="text" placeholder="Category Description"
                                                                     id="" cols="30" rows="10">{{ $category->category_description }}</textarea>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="mb-4 row align-items-center">
-                                                            <div class="col-sm-3 form-label-title">Select Icon
-                                                            </div>
-                                                            <div class="col-sm-9">
-                                                                <div class="dropdown icon-dropdown">
-
-                                                                    <input type="file" class="form-control"
-                                                                        name="category_icon" id="icon">
-
-                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">

@@ -49,7 +49,7 @@
                 const iface = new ethers.utils.Interface(contractABI)
                 // const decodedData = iface.parseTransaction( transaction);
                 const decodedData = iface.parseTransaction(transaction);
-                console.log(parseInt(decodedData.args.productId._hex, 16));
+                console.log(decodedData)
                 const productId = parseInt(decodedData.args.productId._hex, 16)
                 const url = "{{url('/')}}"
                 $.ajax({

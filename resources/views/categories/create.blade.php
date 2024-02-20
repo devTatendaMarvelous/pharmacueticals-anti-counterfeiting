@@ -25,17 +25,6 @@
                                                             placeholder="Category Description" id="" cols="30" rows="10"></textarea>
                                                     </div>
                                                 </div>
-
-                                                <div class="mb-4 row align-items-center">
-                                                    <div class="col-sm-3 form-label-title">Select Category Icon</div>
-                                                    <div class="col-sm-9">
-                                                        <div class="dropdown icon-dropdown">
-                                                            
-                                                            <input type="file" name="category_icon" id="icon" >
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <input type="submit" value="Create" class="btn btn-primary">
                                             </form>
                                         </div>
@@ -46,7 +35,7 @@
                     </div>
                     <script>
                          function updatIcon(icon){
-                              
+
                               const iconInput=document.querySelector('#icon'),
                               btnIcon=document.querySelector('#dropdownMenuButton1')
                               btnIcon.innerHTML=icon
