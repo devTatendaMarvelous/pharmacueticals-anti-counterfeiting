@@ -6,18 +6,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/get-product/{id}', fn($id)=> response()->json(Product::find($id)));
 
 Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () {
-
     Route::controller(UsersController::class)->group(function () {
         Route::get('/users', 'index')->name('users');
     });
 
     Route::controller(AgentsController::class)->group(function () {
-        Route::get('/agents', 'index')->name('agents');
-        Route::get('/agents/create', 'create')->name('agents.create');
-        Route::get('/agents/{id}/edit', 'edit')->name('agents.edit');
-        Route::get('/agents/{id}/delete', 'destroy')->name('agents.delete');
-        Route::post('/agents', 'store')->name('agents.store');
-        Route::post('/agents/{id}/update', 'update')->name('agents.update');
+        Route::get('/pharmacies', 'index')->name('agents');
+        Route::get('/pharmacies/create', 'create')->name('agents.create');
+        Route::get('/pharmacies/{id}/edit', 'edit')->name('agents.edit');
+        Route::get('/pharmacies/{id}/delete', 'destroy')->name('agents.delete');
+        Route::post('/pharmacies', 'store')->name('agents.store');
+        Route::post('/pharmacies/{id}/update', 'update')->name('agents.update');
     });
 
     Route::controller(NotificationsController::class)->group(function () {

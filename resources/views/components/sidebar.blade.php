@@ -55,14 +55,14 @@
                              <li class="sidebar-list">
                                 <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                                     <i class="ri-user-3-line"></i>
-                                    <span>Agents</span>
+                                    <span>Pharmacies</span>
                                 </a>
                                 <ul class="sidebar-submenu">
                                     <li>
-                                        <a href="{{ route('agents') }}">All Agents</a>
+                                        <a href="{{ route('agents') }}">All Pharmacies</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('agents.create') }}">Create Agent</a>
+                                        <a href="{{ route('agents.create') }}">Create Pharmacy</a>
                                     </li>
                                 </ul>
                             </li>

@@ -8,7 +8,7 @@
                                    @csrf
                                    <div class="card-body">
                                         <div class="title-header option-title">
-                                             <h5>Edit Agent</h5>
+                                             <h5>Edit Pharmacy</h5>
                                         </div>
                                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                              <li class="nav-item" role="presentation">
@@ -27,7 +27,7 @@
                                              <div class="tab-pane fade show active" id="pills-home" role="tabpanel">
                                                   <div class="theme-form theme-form-2 mega-form">
                                                        <div class="card-header-1">
-                                                       <h5>Agent Account</h5>
+                                                       <h5>Pharmacy Account</h5>
                                                        </div>
 
                                                        <div class="row">
@@ -62,7 +62,7 @@
 
                                              <div class="tab-pane fade" id="pills-profile" role="tabpanel">
                                                   <div class="card-header-1">
-                                                       <h5>Agent Details</h5>
+                                                       <h5>Pharmacy Details</h5>
                                                   </div>
                                                   <div class="row align-items-center">
                                                        <label

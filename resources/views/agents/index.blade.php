@@ -5,7 +5,7 @@
             <div class="card card-table">
                 <div class="card-body">
                     <div class="title-header option-title">
-                        <h5>All Agents</h5>
+                        <h5>All Pharmacy</h5>
                         <form class="d-inline-flex">
                             <a href="{{ route('agents.create') }}" class="align-items-center btn btn-theme d-flex">
                                 <i data-feather="plus"></i>Add New
@@ -17,7 +17,7 @@
                         <table class="table all-package theme-table" id="table_id">
                             <thead>
                             <tr>
-                                <th>Agent Logo</th>
+                                <th>Pharmacy Logo</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Telephone</th>
@@ -90,7 +90,7 @@
                                     </div>
                                 </div>
                             @empty
-                                <p class="text-center">No Users Available</p>
+                                <p class="text-center">No Pharmacies Available</p>
                             @endforelse
 
 

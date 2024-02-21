@@ -8,7 +8,7 @@
                                    @csrf
                                    <div class="card-body">
                                         <div class="title-header option-title">
-                                             <h5>Add New Agent</h5>
+                                             <h5>Add New Pharmacy</h5>
                                         </div>
                                         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                              <li class="nav-item" role="presentation">
@@ -19,7 +19,7 @@
                                              <li class="nav-item" role="presentation">
                                                   <button class="nav-link" id="pills-profile-tab"
                                                        data-bs-toggle="pill" data-bs-target="#pills-profile"
-                                                       type="button">Agent Details</button>
+                                                       type="button">Pharmacy Details</button>
                                              </li>
                                         </ul>
 
@@ -27,7 +27,7 @@
                                              <div class="tab-pane fade show active" id="pills-home" role="tabpanel">
                                                   <div class="theme-form theme-form-2 mega-form">
                                                        <div class="card-header-1">
-                                                       <h5>Agent Account</h5>
+                                                       <h5>Pharmacy Account</h5>
                                                        </div>
 
                                                        <div class="row">
@@ -56,7 +56,7 @@
                                                        </div>
                                                        <div class="mb-4 row align-items-center">
                                                             <label
-                                                                 class="col-lg-2 col-md-3 col-form-label form-label-title">Agent Logo
+                                                                 class="col-lg-2 col-md-3 col-form-label form-label-title"> Logo
                                                                  </label>
                                                             <div class="col-md-9 col-lg-10">
                                                                  <input class="form-control" name="photo" type="file" required>
@@ -93,7 +93,7 @@
 
                                              <div class="tab-pane fade" id="pills-profile" role="tabpanel">
                                                   <div class="card-header-1">
-                                                       <h5>Agent Details</h5>
+                                                       <h5>Pharmacy Details</h5>
                                                   </div>
                                                   <div class="row align-items-center">
                                                        <label
