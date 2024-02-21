@@ -99,22 +99,22 @@
                                                     </li>
                                                 @endif
                                                 @if($product->is_verified)
-                                                @if( $product->is_published===0 )
+                                                        @if( $product->is_published===0 )
 
-                                                    <li>
-                                                        <a href="{{ route('products.publish',[$product->id]) }}"
-                                                           class="btn btn-primary text-white">
-                                                            Publish
-                                                        </a>
-                                                    </li>
-                                                @else
-                                                    <li>
-                                                        <a href="{{ route('products.unpublish',[$product->id]) }}"
-                                                           class="btn btn-secondary">
-                                                            UnPublish
-                                                        </a>
-                                                    </li>
-                                                @endif
+                                                            <li>
+                                                                <a href="{{ route('products.publish',[$product->id]) }}"
+                                                                   class="btn btn-primary text-white">
+                                                                    Publish
+                                                                </a>
+                                                            </li>
+                                                        @else
+                                                            <li>
+                                                                <a href="{{ route('products.unpublish',[$product->id]) }}"
+                                                                   class="btn btn-secondary">
+                                                                    UnPublish
+                                                                </a>
+                                                            </li>
+                                                        @endif
                                                     @endif
                                                 <li>
                                                     <a href="javascript:void(0)" data-bs-toggle="modal"
