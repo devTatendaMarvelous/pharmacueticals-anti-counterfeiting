@@ -71,7 +71,7 @@
                                 @forelse ( $notifications as $notification)
                                     <div>
                                     <div class="timer-notification ">
-                                           <h3> {{$notification->notification}}</h3>
+                                           <h3 class="text-black"> {{$notification->notification}}</h3>
                                     </div>
                                 </div>
                                 @empty
