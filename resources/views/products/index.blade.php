@@ -98,6 +98,7 @@
                                                         </a>
                                                     </li>
                                                 @endif
+                                                @if($product->is_verified)
                                                 @if( $product->is_published===0 )
 
                                                     <li>
@@ -114,6 +115,7 @@
                                                         </a>
                                                     </li>
                                                 @endif
+                                                    @endif
                                                 <li>
                                                     <a href="javascript:void(0)" data-bs-toggle="modal"
                                                        data-bs-target="#updateProduct{{ $product->id }}">
