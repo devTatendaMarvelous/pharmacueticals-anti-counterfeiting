@@ -27,6 +27,10 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class,'category_id');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class,'pharmacy_id');
+    }
     public function verificationRequest(){
         return $this->hasOne(VerificationRequest::class,'product_id');
     }

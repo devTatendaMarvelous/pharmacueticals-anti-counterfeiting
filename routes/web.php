@@ -3,7 +3,7 @@
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/get-product/{id}', fn($id)=> response()->json(Product::with('category')->where('id',$id)->first()));
+Route::get('/get-product/{id}', fn($id)=> response()->json(Product::with('category')->with('user')->where('id',$id)->first()));
 
 Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () {
     Route::controller(UsersController::class)->group(function () {

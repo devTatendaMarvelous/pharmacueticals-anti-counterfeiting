@@ -64,7 +64,7 @@
                             <div class="card p-3 mb-5" style="width: 18rem;">
                               <img class="card-img-top" src="${url}/storage/${response.product_photo}" alt="Card image cap">
                               <div class="card-body">
-                                <h5 class="card-title"><strong>Pharmacy: </strong> ${response.product_name}</h5>
+                                <h5 class="card-title"><strong>Pharmacy: </strong> ${response.user.name}</h5>
                                 <h5 class="card-title"><strong>Product: </strong>${response.product_name}</h5>
                                 <p class="card-text"><strong>Category: </strong>${response.category.category_name.slice(0, 94)}</p>
                                 <a href="#" class="btn btn-primary">${response.product_name} is verified</a>
