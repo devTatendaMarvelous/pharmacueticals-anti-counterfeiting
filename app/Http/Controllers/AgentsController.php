@@ -78,7 +78,7 @@ class AgentsController extends Controller
             Agent::create($agent);
             Toastr::success('Agent Account created successfully', 'success');
             DB::commit();
-            return redirect('agents');
+            return redirect('pharmacies');
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e->getMessage());
@@ -139,7 +139,7 @@ class AgentsController extends Controller
             $agentDetails->update($agent);
             DB::commit();
             Toastr::success('Agent Account created successfully', 'success');
-            return redirect('agents');
+            return redirect('pharmacies');
         } catch (\Exception $e) {
             DB::rollBack();
             dd($e->getMessage());
