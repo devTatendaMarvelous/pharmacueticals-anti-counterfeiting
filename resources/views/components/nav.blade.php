@@ -17,7 +17,7 @@
         </div>
         <div class="text-center">
             <h3>
-                You are viewing the <strong> {{Auth::user()->type}} </strong> Backend Dashboard
+                You are viewing the <strong> {{ Auth::user()->type=="Agent"?'Pharmacy':Auth::user()->type }}</strong>  Dashboard
             </h3>
         </div>
 
@@ -35,7 +35,7 @@
                              alt="">
                         <div class="user-name-hide media-body">
                             <span>{{ Auth::user()->name }}</span>
-                            <p class="mb-0 font-roboto">{{ Auth::user()->type }}<i
+                            <p class="mb-0 font-roboto">{{ Auth::user()->type=="Agent"?'Pharmacy':Auth::user()->type }}<i
                                     class="middle ri-arrow-down-s-line"></i></p>
                         </div>
                     </div>
