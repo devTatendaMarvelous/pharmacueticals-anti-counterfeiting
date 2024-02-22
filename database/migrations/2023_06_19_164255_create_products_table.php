@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->integer('pharmacy_id')->default(1);
-            $table->integer('category_id')->default(1);
+            $table->integer('pharmacy_id');
+            $table->integer('category_id');
             $table->string('product_name');
             $table->string('product_photo');
             $table->string('serial')->unique();
