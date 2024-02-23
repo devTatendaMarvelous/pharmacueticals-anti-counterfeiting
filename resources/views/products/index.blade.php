@@ -56,7 +56,20 @@
                                         <td>{{ $product->quantity }}</td>
 
                                         <td class="td-price">${{ $product->selling_price }}</td>
-                                        <td>{{ $product->verification_token }}</td>
+                                        <td>@if($product->is_verified)
+                                            <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                   onclick="makeCode({{$product->id}},'{{$product->verification_token}}')"
+                                               class="btn btn-primary">
+                                                Reveal QR Code
+                                            </a>
+                                            <a href="javascript:void(0)" data-bs-toggle="modal"
+                                               data-bs-target="#viewQR{{$product->id}}"
+                                               id="viewQRbtn{{$product->id}}">
+                                            </a>
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>
                                         <td>
                                             <p class="
                                                             @if ($product->product_status==='Low')
@@ -175,6 +188,30 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- Add Product Modal Box Start -->
+                                        <div class="modal fade theme-modal remove-coupon" id="viewQR{{$product->id}}"
+                                             aria-hidden="true" tabindex="-1">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header d-block text-center">
+                                                        <h5 class="modal-title w-100" >QR Code for {{$product->product_name}}
+                                                        </h5>
+                                                    </div>
+                                                    <div class="container d-flex justify-content-center align-items-center pb-5 row">
+                                                        <div class="col-12 d-flex justify-content-center pb-3">
+                                                            <div id="qrcode{{$product->id}}" style="width:100px; height:100px; margin-top:15px; "></div>
+                                                        </div>
+                                                        <h6>{{$product->verification_token}}</h6>
+                                                        <div class="col-12 d-flex justify-content-center pt-3">
+                                                            <a id="downloadLink{{$product->id}}" href="#"  class="btn btn-primary"  onclick="downloadImage({{$product->id}},'{{$product->user->name.'_'.$product->product_name}}')">Download </a>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- sidebar effect -->
+
                                     </tr>
                                 @empty
                                 @endforelse
@@ -243,5 +280,33 @@
         </div>
     </div>
     <!-- sidebar effect -->
-<x-blockchainjs/>
+
+
+    <script>
+        function makeCode (id,token) {
+            const qr=document.getElementById(`qrcode${id}`)
+            qr.innerHTML = "";
+            var qrcode = new QRCode(qr, {
+                width : 100,
+                height : 100
+            });
+            qrcode.makeCode(token)
+            console.log(token)
+            document.getElementById(`viewQRbtn${id}`).click();
+        }
+        function downloadImage(id,name){
+
+
+            var imageUrl = $(`#qrcode${id}.img`).prevObject[0].images[5].getAttribute('src') // Replace with the URL of the image you want to download
+
+            $(`#downloadLink${id}`).attr({
+                    href: imageUrl,
+                    download:`${name}_Qr.png` // Replace with the desired filename for the downloaded image
+                })[0].click();
+
+        }
+    </script>
+    <x-blockchainjs/>
+
+
 </x-dashboard>

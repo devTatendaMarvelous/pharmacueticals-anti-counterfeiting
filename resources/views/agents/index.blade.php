@@ -5,7 +5,7 @@
             <div class="card card-table">
                 <div class="card-body">
                     <div class="title-header option-title">
-                        <h5>All Pharmacy</h5>
+                        <h5>All Pharmacies</h5>
                         <form class="d-inline-flex">
                             <a href="{{ route('agents.create') }}" class="align-items-center btn btn-theme d-flex">
                                 <i data-feather="plus"></i>Add New

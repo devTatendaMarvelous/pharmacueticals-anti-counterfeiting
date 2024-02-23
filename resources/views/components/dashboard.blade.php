@@ -7,12 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" href="{{asset('logo.png')}}" type="image/x-icon">
-    <title>Online Marketing System  - Dashboard</title>
+    <title>{{config('app.name')}}  - Dashboard</title>
 
-    <!-- Google font-->
-    <link
-        href="../../../fonts.googleapis.com/css25af9.css')}}?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
-        rel="stylesheet">
 
     <!-- Linear Icon css -->
     <link rel="stylesheet" href="{{asset('assets/css/linearicon.css')}}">
@@ -51,6 +47,7 @@
     <link rel="stylesheet" href="{{ URL::to('toastr.min.css') }}">
     <script src="{{ URL::to('toastr_jquery.min.js') }}"></script>
 	<script src="{{ URL::to('toastr.min.js') }}"></script>
+    <script src="{{asset('qrcode/qrcode.js')}}"></script>
     <style>
         .status-warning span {
             background-color: rgba(226, 187, 36, 0.45);

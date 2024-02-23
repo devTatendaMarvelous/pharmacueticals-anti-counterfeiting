@@ -35,7 +35,7 @@
 
                                                     <td>{{ $user->email }}</td>
 
-                                                    <td style="text-align:center;">{{ $user->type }}</td>
+                                                    <td style="text-align:center;">{{ $user->type=='Agent'?'Pharmacy':$user->type }}</td>
 
 
                                                 </tr>

@@ -1,5 +1,6 @@
 @push('scripts')
     <script src="{{asset('assets/js/ethers.js')}}"></script>
+
     <script>
         const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:7545', {
             chainId: 1337
