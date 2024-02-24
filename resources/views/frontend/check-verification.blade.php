@@ -1,34 +1,126 @@
 @extends('layouts.app')
 @section('content')
+    <style>
+
+        .qr-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 5px;
+        }
+
+        .qr-container h1 {
+            color: #ffffff;
+        }
+
+        .section {
+            background-color: #ffffff;
+            padding: 50px 30px;
+            border: 1.5px solid #b2b2b2;
+            border-radius: 0.25em;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        #my-qr-reader {
+            padding: 20px !important;
+            border: 1.5px solid #b2b2b2 !important;
+            border-radius: 8px;
+        }
+
+        #my-qr-reader img[alt="Info icon"] {
+            display: none;
+        }
+
+        #my-qr-reader img[alt="Camera based scan"] {
+            width: 100px !important;
+            height: 100px !important;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: 1px solid #b2b2b2;
+            outline: none;
+            border-radius: 0.25em;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            background-color: #008000ad;
+            transition: 0.3s background-color;
+        }
+
+        button:hover {
+            background-color: #008000;
+        }
+
+        #html5-qrcode-anchor-scan-type-change {
+            text-decoration: none !important;
+            color: #1d9bf0;
+        }
+
+        video {
+            width: 100% !important;
+            border: 1px solid #b2b2b2 !important;
+            border-radius: 0.25em;
+        }
+    </style>
     <!-- Product Section Start -->
     <section class="product-section">
-        <div class="container-fluid-lg">
-            <div class="row g-sm-4 g-3 container">
-                <div class="text-danger d-flex justify-content-center p-5" id="error"></div>
-                <div class="card-header d-flex justify-content-center" id="content-area">
-                    <div class="row card p-2 mb-5 mt-5"  id="form">
-                        <h3 class="p-3">Check Verification</h3>
-                        <div>
-                            <input class="form-control" placeholder="Enter Verification token..." id="token">
-                        </div>
-                        <div class="mt-3 d-flex justify-content-center">
-                            <input class="btn col-12 " type="submit" value="Check"
-                                   style="background:  #1c5b77; color:#fff; margin-right:5px;" onclick="getTransactionHash()">
+            <div class="row container">
+                <div class="text-danger d-flex justify-content-center px-5" id="error"></div>
+                <div class=" d-flex justify-content-center" id="content-area">
+                    <div class=" card px-5 py-3 mb-5 "  id="form">
+                        <h3 class="p-3">Scan QR Code</h3>
+                        <div class="qr-container  col-12">
+                            <div class="section">
+                                <div id="my-qr-reader">
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="text-center  saving" style="display: none;color:#1C5B77;">
                         <i class="fa fa-spin fa-spinner fa-4x"></i>
-                        <h4>Fetching transaction...</h4>
+                        <h4 id="fetch-status">Fetching product from the blockchain...</h4>
                     </div>
                 </div>
             </div>
-        </div>
-
     </section>
     <!-- Product Section End -->
 
     <script src="{{asset('assets/js/ethers.js')}}"></script>
-    <script>
+
+    <script src="{{asset('qrcode/html5-qrcode.min.js')}}"></script>
+    <script >
+        // script.js file
+
+        function domReady(fn) {
+            if (
+                document.readyState === "complete" ||
+                document.readyState === "interactive"
+            ) {
+                setTimeout(fn, 1000);
+            } else {
+                document.addEventListener("DOMContentLoaded", fn);
+            }
+        }
+
+        domReady(function () {
+
+            // If found you qr code
+            function onScanSuccess(decodeText, decodeResult) {
+                getTransactionHash(decodeText);
+
+                // alert("You Qr is : " + decodeText, decodeResult);
+            }
+
+            let htmlscanner = new Html5QrcodeScanner(
+                "my-qr-reader",
+                { fps: 10, qrbos: 250 }
+            );
+            htmlscanner.render(onScanSuccess);
+        });
+
+
         const area = $('#content-area')
 
         area.append()
@@ -37,9 +129,9 @@
             chainId: 1337
         });
         const url = "{{url('/')}}"
-        const getTransactionHash = () => {
+        const getTransactionHash = (transactionHash) => {
 
-            const transactionHash = $('#token').val();
+            // const transactionHash = $('#token').val();
             console.log(transactionHash)
             $('.saving').show();
             $('#form').hide();
@@ -52,6 +144,7 @@
                 console.log(decodedData)
                 const productId = parseInt(decodedData.args.productId._hex, 16)
                 const url = "{{url('/')}}"
+                $('#fetch-status').text='Matching the transaction with the product...'
                 $.ajax({
                     url: `${url}/get-product/${productId}`,
                     method: 'GET',

@@ -48,6 +48,7 @@
     <script src="{{ URL::to('toastr_jquery.min.js') }}"></script>
 	<script src="{{ URL::to('toastr.min.js') }}"></script>
     <script src="{{asset('qrcode/qrcode.js')}}"></script>
+
     <style>
         .status-warning span {
             background-color: rgba(226, 187, 36, 0.45);
