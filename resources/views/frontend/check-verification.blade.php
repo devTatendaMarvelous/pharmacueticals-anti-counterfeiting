@@ -108,7 +108,12 @@
 
             // If found you qr code
             function onScanSuccess(decodeText, decodeResult) {
-                getTransactionHash(decodeText);
+
+                $('.saving').show();
+                $('#form').hide();
+                setTimeout(function () {
+                    getTransactionHash(decodeText);
+                },2000)
 
                 // alert("You Qr is : " + decodeText, decodeResult);
             }
@@ -133,10 +138,10 @@
 
             // const transactionHash = $('#token').val();
             console.log(transactionHash)
-            $('.saving').show();
-            $('#form').hide();
+
             // transactionHash = "0xbd92c9aee699356c6283e014de81760f5b808afbd1365bfe5550e64d54360251";
             provider.getTransaction(transactionHash).then((transaction) => {
+                document.getElementById('fetch-status').textContent = 'Matching the transaction with the product...';
                 // Decode the transaction data
                 const iface = new ethers.utils.Interface(contractABI)
                 // const decodedData = iface.parseTransaction( transaction);
@@ -144,7 +149,7 @@
                 console.log(decodedData)
                 const productId = parseInt(decodedData.args.productId._hex, 16)
                 const url = "{{url('/')}}"
-                $('#fetch-status').text='Matching the transaction with the product...'
+
                 $.ajax({
                     url: `${url}/get-product/${productId}`,
                     method: 'GET',
