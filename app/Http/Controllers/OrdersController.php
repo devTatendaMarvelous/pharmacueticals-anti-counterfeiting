@@ -184,10 +184,6 @@ class OrdersController extends Controller
                 'cart_items.quantity',
                 'users.name',
             ]);
-
         return view('orders.show')->with(['products'=>$items,'carbon'=>Carbon::class,'order'=>$order]);
     }
-
-
-
 }

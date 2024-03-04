@@ -9,7 +9,7 @@ class VerificationRequest extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'product_id',
+        'stock_id',
         'notes',
         'status'
     ];
