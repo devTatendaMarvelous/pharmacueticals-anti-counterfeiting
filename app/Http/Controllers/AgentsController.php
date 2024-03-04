@@ -76,14 +76,14 @@ class AgentsController extends Controller
             $user = User::create($agent);
             $agent['user_id'] = $user->id;
             Agent::create($agent);
-            Toastr::success('Agent Account created successfully', 'success');
+            Toastr::success('Pharmacy Account created successfully', 'success');
             DB::commit();
             return redirect('pharmacies');
         } catch (\Exception $e) {
             DB::rollBack();
-            dd($e->getMessage());
-//            Toastr::error('An error occured while processing', 'error');
-//            return back();
+
+            Toastr::error('An error occured while processing', 'error');
+            return back();
         }
     }
 
@@ -138,7 +138,7 @@ class AgentsController extends Controller
             $agentDetails = Agent::where('id', $id)->get()[0];
             $agentDetails->update($agent);
             DB::commit();
-            Toastr::success('Agent Account created successfully', 'success');
+            Toastr::success('Pharmacy Account updated successfully', 'success');
             return redirect('pharmacies');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -159,7 +159,7 @@ class AgentsController extends Controller
             $agentAccount->delete();
             $agentDetails = Agent::where('id', $id)->get()[0];
             $agentDetails->delete();
-            Toastr::success('Agent deleted successfully', 'success');
+            Toastr::success('Pharmacy deleted successfully', 'success');
             return redirect('agents');
         } catch (\Exception $exception) {
             Toastr::error('An error occured while processing', 'error');

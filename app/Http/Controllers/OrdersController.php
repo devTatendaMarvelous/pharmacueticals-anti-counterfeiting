@@ -170,12 +170,22 @@ class OrdersController extends Controller
     public function show( $id)
     {
         $order=Order::where('id',$id)->first();
+        $items = Cart::join('cart_items', 'cart_items.cart_id', '=', 'carts.id')
+            ->join('stocks', 'stocks.id', '=', 'cart_items.stock_id')
+            ->join('products', 'products.id', '=', 'stocks.product_id')
+            ->join('agents', 'agents.id', '=', 'stocks.pharmacy_id')
+            ->join('users', 'users.id', '=', 'agents.user_id')
+            ->where('cart_items.cart_id',$order->cart_id)
+            ->get([
+                'carts.id',
+                'products.product_name',
+                'stocks.selling_price',
+                'products.product_photo',
+                'cart_items.quantity',
+                'users.name',
+            ]);
 
-        $products=Product::join('cart_items','cart_items.product_id','=','products.id')
-            ->join('users','users.id','=','products.pharmacy_id')
-            ->select(['products.product_name','products.selling_price','products.product_photo','users.name','cart_items.quantity'])
-            ->where('cart_items.cart_id',$order->cart_id)->get();
-        return view('orders.show')->with(['products'=>$products,'carbon'=>Carbon::class,'order'=>$order]);
+        return view('orders.show')->with(['products'=>$items,'carbon'=>Carbon::class,'order'=>$order]);
     }
 
 

@@ -14,4 +14,11 @@ class Category extends Model
         'category_description',
         'category_icon',
     ];
+    public function products()
+    {
+        return $this->hasMany(Product::class,'category_id');
+    }
+    public function stocks(){
+        return $this->hasManyThrough(Stock::class,Product::class);
+    }
 }

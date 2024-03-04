@@ -13,9 +13,9 @@
         <div class="container-fluid-lg">
             <div class="banner-slider">
             @forelse ($agents as $agent )
-                <div >
+                <div
                     <div class="banner-contain hover-effect" >
-                        <a href="{{ route('agent',[$agent->user_id]) }}" >
+                        <a href="{{ route('agent',[$agent->id]) }}" >
                             <img src="{{$agent->photo? asset('storage/'.$agent->photo):asset('assets/images/vegetable/banner/4.jpg')}}" class="bg-img blur-up lazyload " alt="">
                             <div class="banner-details" >
                                 <div class="banner-box" style="background: linear-gradient(rgba(2, 97, 26, 0.5),rgba(2, 97, 26, 0.5))">

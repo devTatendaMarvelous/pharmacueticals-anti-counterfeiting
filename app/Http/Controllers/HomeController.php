@@ -40,14 +40,14 @@ class HomeController extends Controller
                 return redirect('orders');
             }
             $orders = Order::where('status', 'Ordered')->get();
-            $products = Product::where('is_published', 1)->get();
+            $products =Product::where('is_active', 1)->get();
             $clients = User::where('type', 'Client')->get();
             $sales = null;
 
             if (Auth::user()->type === 'Agent') {
                 $sales = Sale::where('pharmacy_id', Auth::user()->id)->get();
 
-                $products = Product::where('pharmacy_id', Auth::user()->id)->where('is_published', 1)->get();
+                $products = Product::all();//where('pharmacy_id', Auth::user()->id)->where('is_published', 1)->get();
             } else {
                 $sales = Sale::all();
             }

@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class VerificationRequest extends Model
+class Manufacturer extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'product_id',
-        'notes',
-        'status'
+    'user_id','address','tel',
+        'photo','licence'
     ];
-    public function stock()
+    public function user()
     {
-        return $this->belongsTo(Stock::class,'stock_id');
-
+        return $this->belongsTo(User::class,'user_id');
     }
 }

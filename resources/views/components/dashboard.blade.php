@@ -44,6 +44,10 @@
     <!-- App css -->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
 
+    <!-- Select2 css -->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/select2.min.css')}}">
+
+
     <link rel="stylesheet" href="{{ URL::to('toastr.min.css') }}">
     <script src="{{ URL::to('toastr_jquery.min.js') }}"></script>
 	<script src="{{ URL::to('toastr.min.js') }}"></script>
@@ -129,7 +133,9 @@
     <!-- sidebar effect -->
     <script src="{{asset('assets/js/ethers.js')}}"></script>
     <script src="{{asset('custom.js')}}"></script>
-
+    <!-- select2 js -->
+    <script src="{{asset('assets/js/select2.min.js')}}"></script>
+    <script src="{{asset('assets/js/select2-custom.js')}}"></script>
     <!-- latest js -->
     <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
 

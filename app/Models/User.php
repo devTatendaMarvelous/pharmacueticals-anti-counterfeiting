@@ -45,6 +45,10 @@ class User extends Authenticatable
 
     public function  agent(){
         return $this->hasOne(Agent::class,'user_id');
-        }
+    }
+    public function  manufacturer(){
+        return $this->hasOne(Manufacturer::class,'user_id');
+    }
+
 
 }

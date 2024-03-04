@@ -51,7 +51,7 @@
                         method: 'GET',
                         data: {token: res.hash},
                         success: function (response) {
-                            window.location.href = `${verifyURL}/products`
+                            window.location.href = `${verifyURL}/stocks`
                         }
                     });
                 })

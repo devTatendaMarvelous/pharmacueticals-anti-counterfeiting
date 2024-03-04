@@ -38,7 +38,7 @@
 
                             </li>
                         @endif
-                        @if (Auth::user()->type==='Agent')
+                        @if (Auth::user()->type==='Manufacturer')
                             <li class="sidebar-list">
                                 <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                     <i class="ri-store-3-line"></i>
@@ -51,8 +51,17 @@
                                 </ul>
                             </li>
                         @endif
+                        @if (Auth::user()->type==='Agent')
+                            <li class="sidebar-list">
+                                <a class="linear-icon-link sidebar-link sidebar-titl e" href="{{route('stocks')}}">
+                                    <i class="ri-store-3-line"></i>
+                                    <span>Stock</span>
+                                </a>
+
+                            </li>
+                        @endif
                         @if (Auth::user()->type=== 'Admin')
-                             <li class="sidebar-list">
+                            <li class="sidebar-list">
                                 <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                                     <i class="ri-user-3-line"></i>
                                     <span>Pharmacies</span>
@@ -63,6 +72,20 @@
                                     </li>
                                     <li>
                                         <a href="{{ route('agents.create') }}">Create Pharmacy</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="sidebar-list">
+                                <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                                    <i class="ri-user-3-line"></i>
+                                    <span>Manufacturers</span>
+                                </a>
+                                <ul class="sidebar-submenu">
+                                    <li>
+                                        <a href="{{ route('manufacturers') }}">All Manufacturers</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('manufacturers.create') }}">Create Manufacturer</a>
                                     </li>
                                 </ul>
                             </li>

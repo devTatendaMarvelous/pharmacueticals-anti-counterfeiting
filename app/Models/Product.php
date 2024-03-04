@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "pharmacy_id",
+        "manufacturer_id",
         "product_name",
         "category_id",
         "buying_price",
@@ -31,7 +31,11 @@ class Product extends Model
     {
         return $this->belongsTo(User::class,'pharmacy_id');
     }
-    public function verificationRequest(){
-        return $this->hasOne(VerificationRequest::class,'product_id');
+    public function manufacturer()
+    {
+        return $this->belongsTo(Manufacturer::class,'manufacturer_id');
+    }
+    public function stocks(){
+        return $this->hasMany(Stock::class,'product_id');
     }
 }

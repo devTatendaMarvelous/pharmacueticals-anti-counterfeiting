@@ -16,6 +16,5 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(1)->create();
         \App\Models\Category::factory(1)->create();
         $this->call(CardsSeeder::class);
-
     }
 }

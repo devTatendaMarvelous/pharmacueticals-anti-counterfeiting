@@ -123,7 +123,7 @@
                                                   <div class="mb-4 row align-items-center">
                                                        <div class="col-md-9 col-lg-10">
                                                             <div class="col-md-6"></div>
-                                                            <input type="submit" class="btn btn-primary" value="Update Pharmacy">
+                                                            <input type="submit" class="btn btn-primary" value="Update Agent">
                                                        </div>
                                                   </div>
                                              </div>

@@ -18,27 +18,13 @@ class ProductsController extends Controller
     {
 
         $products = Product::join('categories', 'categories.id', '=', 'products.category_id')
-            ->where('pharmacy_id', Auth::user()->id)
+            ->where('manufacturer_id', Auth::user()->manufacturer->id)
             ->get(['categories.category_name', 'products.*']);
         $categories=Category::all();
 
         return view('products.index')->with('categories', $categories)->with('products', $products);
     }
 
-    function publish($id)
-    {
-        $product = Product::find($id);
-        $product->is_published = 1;
-        $product->save();
-        return redirect('products');
-    }
-    function unpublish($id)
-    {
-        $product = Product::find($id);
-        $product->is_published = 0;
-        $product->save();
-        return redirect('products');
-    }
 
 
     /**
@@ -50,21 +36,17 @@ class ProductsController extends Controller
             $product = $request->validate([
                 "product_name" => "required",
                 "serial" => "required",
-                "category_id" => "required",
-                "buying_price" => "required",
-                "selling_price" => "required",
-                "quantity" => "required",
-                "minimun_order" => "required",
-                "product_description" => "required",
+                "category_id" => "required"
             ]);
 
-            $product['pharmacy_id'] = auth()->user()->id;
+            $product['manufacturer_id'] = auth()->user()->manufacturer->id;
             if ($request->has('product_photo')) {
                 $product['product_photo'] = $request->file('product_photo')->store('productPhotos', 'public');
             }
             Product::create($product);
             return redirect('products');
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             Toastr::error('An error occured while processing', 'error');
             return back();
         }
@@ -94,10 +76,7 @@ class ProductsController extends Controller
         try {
             $product = $request->validate([
                 "product_name" => "required",
-                "buying_price" => "required",
-                "selling_price" => "required",
-                "quantity" => "required",
-                "product_description" => "required",
+
             ]);
 
             if ($request->has('product_photo')) {
@@ -107,20 +86,19 @@ class ProductsController extends Controller
 
             $orig_product = Product::find($id);
 
-            $product['quantity'] += $orig_product->quantity;
 
             $orig_product->update($product);
             $product = Product::find($id);
-            if ($product->quantity > ($product->minimun_order * 1.25)) {
-
-                $product->product_status = 'Good';
-            } elseif ($product->quantity < $product->minimun_order) {
-
-                $product->product_status = 'Low';
-            } else {
-
-                $product->product_status = 'Reorder';
-            }
+//            if ($product->quantity > ($product->minimun_order * 1.25)) {
+//
+//                $product->product_status = 'Good';
+//            } elseif ($product->quantity < $product->minimun_order) {
+//
+//                $product->product_status = 'Low';
+//            } else {
+//
+//                $product->product_status = 'Reorder';
+//            }
             $product->save();
 
             return redirect('products');
@@ -135,6 +113,10 @@ class ProductsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Product::find($id)->delete();
+
+        Toastr::success('Product deleted successfully', 'success');
+        return back();
+
     }
 }

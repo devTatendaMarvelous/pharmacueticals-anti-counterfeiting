@@ -49,12 +49,12 @@
                                             <div class="product-box card ">
                                                 <div class="product-image">
                                                     <a href="javascript:void(0)">
-                                                        <img src="{{ asset('storage/'.$product->product_photo) }}" class="img-fluid blur-up lazyload" alt="{{ $product->product_name }}">
+                                                        <img src="{{ asset('storage/'.$product->product->product_photo) }}" class="img-fluid blur-up lazyload" alt="{{ $product->product->product_name }}">
                                                     </a>
                                                 </div>
                                                 <div class="product-detail text-center">
                                                     <a href="javascript:void(0)">
-                                                        <h6 class="name">{{ $product->product_name }}</h6>
+                                                        <h6 class="name">{{ $product->product->product_name }}</h6>
                                                     </a>
                                                     <h5 class="sold text-content">
                                                         <span class="theme-color price">${{$product->selling_price }}</span>

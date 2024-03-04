@@ -12,16 +12,7 @@
                                 Add Product
                             </a>
                         </div>
-                        <div class="right-options">
-                            <ul>
-                                <li>
-                                    <a href="javascript:void(0)">import</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Export</a>
-                                </li>
-                            </ul>
-                        </div>
+
                     </div>
                     <div>
                         <div class="table-responsive">
@@ -31,9 +22,6 @@
                                     <th>Product Image</th>
                                     <th>Product Name</th>
                                     <th>Category</th>
-                                    <th>Current Qty</th>
-                                    <th>Price</th>
-                                    <th>Verification Token</th>
                                     <th>Status</th>
                                     <th>Option</th>
                                 </tr>
@@ -53,82 +41,37 @@
 
                                         <td>{{ $product->category_name }}</td>
 
-                                        <td>{{ $product->quantity }}</td>
-
-                                        <td class="td-price">${{ $product->selling_price }}</td>
-                                        <td>@if($product->is_verified)
-                                            <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                   onclick="makeCode({{$product->id}},'{{$product->verification_token}}')"
-                                               class="btn btn-primary">
-                                                Reveal QR Code
-                                            </a>
-                                            <a href="javascript:void(0)" data-bs-toggle="modal"
-                                               data-bs-target="#viewQR{{$product->id}}"
-                                               id="viewQRbtn{{$product->id}}">
-                                            </a>
-                                            @else
-                                                N/A
-                                            @endif
-                                        </td>
                                         <td>
                                             <p class="
-                                                            @if ($product->product_status==='Low')
-                                                                status-danger
-                                                            @elseif ($product->product_status==='Reorder')
-                                                                status-warning
-                                                            @elseif ($product->product_status==='Good')
-                                                                status-close
-                                                            @endif
-                                                            ">
-                                                <span>Stock level: {{ $product->product_status }}</span>
+                                            @if ($product->is_active)
+                                                 status-close">
+                                                <span>Active</span>
+                                                @else
+                                                    status-danger">
+                                                <span>Deactivated</span>
+                                                @endif
+
                                             </p>
-                                            <p class="
-                                                            @if( $product->is_verified===0 )
-                                                                status-danger
-                                                            @elseif( $product->is_verified===2 )
-                                                                status-warning
-                                                            @else
-                                                                status-close
-                                                            @endif
-                                                            ">
-                                                <span>{{  $product->is_verified===0? 'Unverified':($product->is_verified===2?'Verification Requested':'Verified') }}</span>
-                                            </p>
+
                                         </td>
                                         <td>
                                             <ul>
-                                                @if( !$product->verificationRequest )
+                                                @if($product->is_activate)
                                                     <li>
-                                                        <a href="{{ route('products.verify',[$product->id]) }}"
-                                                           class="btn btn-primary text-white">
-                                                            Request Verification
+                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                           data-bs-target="#updateProduct{{ $product->id }}">
+                                                           Deactivate
                                                         </a>
                                                     </li>
-                                                @elseif($product->verificationRequest->status=='approved')
+                                                @else
                                                     <li>
-                                                        <a href="javascript:void(0)" class="btn btn-primary text-white" id="btnVerify{{$product->id}}"
-                                                           onclick="verifyProd({{$product->id}}, '{{auth()->user()->name}}', '{{$product->serial}}')">
-                                                            Verify
+                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                           data-bs-target="#updateProduct{{ $product->id }}">
+                                                            Activate
                                                         </a>
                                                     </li>
                                                 @endif
-                                                @if($product->is_verified)
-                                                        @if( $product->is_published===0 )
 
-                                                            <li>
-                                                                <a href="{{ route('products.publish',[$product->id]) }}"
-                                                                   class="btn btn-primary text-white">
-                                                                    Publish
-                                                                </a>
-                                                            </li>
-                                                        @else
-                                                            <li>
-                                                                <a href="{{ route('products.unpublish',[$product->id]) }}"
-                                                                   class="btn btn-secondary">
-                                                                    UnPublish
-                                                                </a>
-                                                            </li>
-                                                        @endif
-                                                    @endif
                                                 <li>
                                                     <a href="javascript:void(0)" data-bs-toggle="modal"
                                                        data-bs-target="#updateProduct{{ $product->id }}">
@@ -137,12 +80,29 @@
                                                 </li>
                                                 <li>
                                                     <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                       data-bs-target="#exampleModalToggle">
+                                                       data-bs-target="#deleteProduct{{ $product->id }}">
                                                         <i class="ri-delete-bin-line"></i>
                                                     </a>
                                                 </li>
                                             </ul>
                                         </td>
+                                        <!-- Delete Modal Box Start -->
+                                        <div class="modal fade theme-modal remove-coupon"
+                                             id="deleteProduct{{ $product->id }}" aria-hidden="true" tabindex="-1">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header d-block text-center">
+                                                        <h5 class="modal-title w-100" id="exampleModalLabel22">Delete {{$product->name}}</h5>
+                                                    </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-warning btn-md fw-bold"
+                                                                    data-bs-dismiss="modal">Cancel
+                                                            </button>
+                                                            <a class="btn btn-animation btn-md fw-bold" href="{{route('products.delete',[$product->id])}}">Yes Delete</a>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!-- Delete Modal Box Start -->
                                         <div class="modal fade theme-modal remove-coupon"
                                              id="updateProduct{{ $product->id }}" aria-hidden="true" tabindex="-1">
@@ -161,20 +121,8 @@
                                                                 <input type="text" class="mb-3 form-control"
                                                                        name="product_name"
                                                                        value="{{ $product->product_name }}" required>
-                                                                <input type="text" class="mb-3 form-control"
-                                                                       name="buying_price"
-                                                                       value="{{ $product->buying_price }}" required>
-                                                                <input type="text" class="mb-3 form-control"
-                                                                       name="selling_price"
-                                                                       value="{{ $product->selling_price }}" required>
-                                                                <input type="text" class="mb-3 form-control"
-                                                                       name="quantity" placeholder="Additional Quantity"
-                                                                       value="0" required>
                                                                 <input type="file" class="mb-3 form-control"
                                                                        name="product_photo" placeholder="photo">
-                                                                <textarea name="product_description"
-                                                                          class="form-control" id="" cols="30"
-                                                                          rows="10">{{ $product->product_description }}</textarea>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -188,30 +136,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Add Product Modal Box Start -->
-                                        <div class="modal fade theme-modal remove-coupon" id="viewQR{{$product->id}}"
-                                             aria-hidden="true" tabindex="-1">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header d-block text-center">
-                                                        <h5 class="modal-title w-100" >QR Code for {{$product->product_name}}
-                                                        </h5>
-                                                    </div>
-                                                    <div class="container d-flex justify-content-center align-items-center pb-5 row">
-                                                        <div class="col-12 d-flex justify-content-center pb-3">
-                                                            <div id="qrcode{{$product->id}}" style="width:100px; height:100px; margin-top:15px; "></div>
-                                                        </div>
-                                                        <h6>{{$product->verification_token}}</h6>
-                                                        <div class="col-12 d-flex justify-content-center pt-3">
-                                                            <a id="downloadLink{{$product->id}}" href="#"  class="btn btn-primary"  onclick="downloadImage({{$product->id}},'{{$product->user->name.'_'.$product->product_name}}')">Download </a>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- sidebar effect -->
-
                                     </tr>
                                 @empty
                                 @endforelse
@@ -252,20 +176,8 @@
                             </select>
                             <input type="text" class="mb-3 form-control"
                                    name="serial" placeholder="Serial Number" required>
-                            <input type="text" class="mb-3 form-control"
-                                   name="buying_price" placeholder="Buying Price" required>
-                            <input type="text" class="mb-3 form-control"
-                                   name="selling_price" placeholder="Selling Price"
-                                   required>
-                            <input type="text" class="mb-3 form-control"
-                                   name="quantity" placeholder="Product Quantity" required>
-                            <input type="text" class="mb-3 form-control"
-                                   name="minimun_order"
-                                   placeholder="Minimum Stock Quantity" required>
                             <input type="file" class="mb-3 form-control"
                                    name="product_photo" placeholder="photo" required>
-                            <textarea name="product_description" class="form-control" id="" cols="30" rows="10"
-                                      placeholder="Product Description"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

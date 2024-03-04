@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+
+use App\Models\Stock;
 use App\Models\VerificationRequest;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
@@ -17,7 +18,7 @@ class VerificationRequestController extends Controller
     public function index()
     {
         $requests = VerificationRequest::where('status', 'pending')->orderBy('id', 'desc')->get();
-        return view('products.verifications')->with(['requests' => $requests, 'carbon' => Carbon::class]);
+        return view('stock.verifications')->with(['requests' => $requests, 'carbon' => Carbon::class]);
     }
 
     public function reject(Request $request, $id)
@@ -26,7 +27,7 @@ class VerificationRequestController extends Controller
             $data = $request->validate(['notes' => 'required']);
             $req = VerificationRequest::find($id);
             $data['status'] = 'reversed';
-            Product::find($req->product_id)->update(['is_verified' => 0]);
+            Stock::find($req->stock_id)->update(['is_verified' => 0]);
             $req->update($data);
             Toastr::success('Request has been rejected successfully', 'success');
             return back();
@@ -59,19 +60,23 @@ class VerificationRequestController extends Controller
      */
     public function store($id)
     {
-        VerificationRequest::create(['product_id' => $id]);
-        Product::find($id)->update(['is_verified' => 2]);
+        VerificationRequest::create(['stock_id' => $id]);
+        Stock::find($id)->update(['is_verified' => 2]);
         Toastr::success('Verification request sent successfully', 'success');
-        return redirect('products');
+        return redirect('stocks');
     }
 
     public function storeToken(Request $request, $id)
     {
-        Product::find($id)->update(['is_verified' => 1, 'verification_token' => $request->token,]);
+        $stock= Stock::find($id);
 
-        $req = VerificationRequest::where('product_id',$id)->first();
+        $stock->verification_token = $request->token;
+        $stock->is_verified = 1;
+        $stock->save();
+        $req = VerificationRequest::where('stock_id',$id)->first();
         $data['status'] = 'verified';
         $req->update($data);
+
         Toastr::success('Verification was successful', 'success');
         return response()->json(['message' => 'success'], 200);
     }

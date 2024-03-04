@@ -19,6 +19,15 @@ Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], fu
         Route::post('/pharmacies/{id}/update', 'update')->name('agents.update');
     });
 
+    Route::controller(ManufacturersController::class)->group(function () {
+        Route::get('/manufacturers', 'index')->name('manufacturers');
+        Route::get('/manufacturers/create', 'create')->name('manufacturers.create');
+        Route::get('/manufacturers/{id}/edit', 'edit')->name('manufacturers.edit');
+        Route::get('/manufacturers/{id}/delete', 'destroy')->name('manufacturers.delete');
+        Route::post('/manufacturers', 'store')->name('manufacturers.store');
+        Route::post('/manufacturers/{id}/update', 'update')->name('manufacturers.update');
+    });
+
     Route::controller(NotificationsController::class)->group(function () {
         Route::get('/notifications', 'index')->name('notifications');
         Route::get('/notifications/create', 'create')->name('notifications.create');
@@ -60,7 +69,22 @@ Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], fu
         Route::post('/products', 'store')->name('products.store');
         Route::post('/products/{id}/update', 'update')->name('products.update');
         Route::get('/products/{id}/publish', 'publish')->name('products.publish');
+        Route::get('/products/{id}/delete', 'destroy')->name('products.delete');
         Route::get('/products/{id}/unpublish', 'unpublish')->name('products.unpublish');
+//        Route::get('/products/{id}/verify', 'verificationRequest')->name('products.verify');
+    });
+    Route::get('/get-serial/{serial}',function ($serial){
+      $prod=Product::where('serial',$serial)->first();
+     return response()->json(['exists'=>isset($prod),'product'=>$prod]);
+    });
+    Route::controller(StocksController::class)->group(function () {
+        Route::get('/stocks', 'index')->name('stocks');
+        Route::get('/stocks/create', 'create')->name('stocks.create');
+        Route::post('/stocks', 'store')->name('stocks.store');
+        Route::post('/stocks/{id}/update', 'update')->name('stocks.update');
+        Route::get('/stocks/{id}/publish', 'publish')->name('stocks.publish');
+        Route::get('/stocks/{id}/delete', 'destroy')->name('stocks.delete');
+        Route::get('/stocks/{id}/unpublish', 'unpublish')->name('stocks.unpublish');
 //        Route::get('/products/{id}/verify', 'verificationRequest')->name('products.verify');
     });
 
@@ -73,7 +97,7 @@ Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], fu
         Route::get('/store-token/{id}', 'storeToken')->name('products.unpublish');
         Route::post('/verifications/{id}/reject', 'reject')->name('verifications.reject');
         Route::post('/verifications/{id}/approve', 'approve')->name('verifications.approve');
-        Route::get('/products/{id}/verify', 'store')->name('products.verify');
+        Route::get('/products/{id}/verify', 'store')->name('stocks.verify');
     });
 
     Route::controller(ClientProfileController::class)->group(function () {

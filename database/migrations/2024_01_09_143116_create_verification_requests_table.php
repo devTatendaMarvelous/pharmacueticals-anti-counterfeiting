@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('verification_requests', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id');
+            $table->integer('stock_id');
             $table->text('notes')->nullable();
             $table->enum('status',['pending','verified','reversed','approved'])->default('pending');
             $table->timestamps();
