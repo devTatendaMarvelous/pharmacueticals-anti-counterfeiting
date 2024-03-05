@@ -3,7 +3,20 @@
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/get-product/{id}', fn($id)=> response()->json(Product::with('category')->with('user')->where('id',$id)->first()));
+Route::get('/get-product/{id}', fn($id)=> response()->json(
+    Product::join('stocks','stocks.product_id','=','products.id')
+        ->join('manufacturers','manufacturers.id','=','products.manufacturer_id')
+        ->join('users','users.id','=','manufacturers.user_id')
+        ->join('agents','agents.id','=','stocks.pharmacy_id')
+        ->join('users as pharmacy','pharmacy.id','=','agents.user_id')
+        ->where('stocks.id',$id)
+        ->select([
+            'products.product_name',
+            'products.product_photo',
+            'products.serial',
+            'users.name',
+            'pharmacy.name as pharmacy_name'
+        ])->first()));
 
 Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth'], function () {
     Route::controller(UsersController::class)->group(function () {

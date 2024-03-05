@@ -162,9 +162,10 @@
                             <div class="card p-3 mb-5" style="width: 18rem;">
                               <img class="card-img-top" src="${url}/storage/${response.product_photo}" alt="Card image cap">
                               <div class="card-body">
-                                <h5 class="card-title"><strong>Pharmacy: </strong> ${response.user.name}</h5>
                                 <h5 class="card-title"><strong>Product: </strong>${response.product_name}</h5>
-                                <p class="card-text"><strong>Category: </strong>${response.category.category_name.slice(0, 94)}</p>
+                                <p class="card-text"><strong>Serial: </strong>${response.serial}</p>
+                                <h5 class="card-title"><strong>Manufacturer: </strong> ${response.name}</h5>
+                                <h5 class="card-title"><strong>Pharmacy: </strong> ${response.pharmacy_name}</h5>
                                 <a href="#" class="btn btn-primary">${response.product_name} is verified</a>
                               </div>
                             </div>
@@ -179,7 +180,7 @@
             }).catch((error) => {
                 const mod = $(`
                             <div class="row d-flex justify-content-center">
-                                <h5 class="card-title text-center">Record Not found </h5>
+                                <h5 class="card-title text-center">The QR Code supplied does not match any verification transaction in  the blockchain </h5>
                                 <p class="card-text text-center">Click the button below to try again</p>
                                 <a href="#" class="btn col-7" style="background:  #1c5b77; color:#fff; margin-right:5px;" onclick="retry()"><i class="fa fa-undo"></i> Retry</a>
                             </div>
