@@ -13,7 +13,7 @@
         <div class="container-fluid-lg">
             <div class="banner-slider">
             @forelse ($agents as $agent )
-                <div
+                <div>
                     <div class="banner-contain hover-effect" >
                         <a href="{{ route('agent',[$agent->id]) }}" >
                             <img src="{{$agent->photo? asset('storage/'.$agent->photo):asset('assets/images/vegetable/banner/4.jpg')}}" class="bg-img blur-up lazyload " alt="" style="max-width: fit-content;
