@@ -16,7 +16,8 @@
                 <div
                     <div class="banner-contain hover-effect" >
                         <a href="{{ route('agent',[$agent->id]) }}" >
-                            <img src="{{$agent->photo? asset('storage/'.$agent->photo):asset('assets/images/vegetable/banner/4.jpg')}}" class="bg-img blur-up lazyload " alt="">
+                            <img src="{{$agent->photo? asset('storage/'.$agent->photo):asset('assets/images/vegetable/banner/4.jpg')}}" class="bg-img blur-up lazyload " alt="" style="max-width: fit-content;
+  overflow: hidden;">
                             <div class="banner-details" >
                                 <div class="banner-box" style="background: linear-gradient(rgba(2, 97, 26, 0.5),rgba(2, 97, 26, 0.5))">
 
