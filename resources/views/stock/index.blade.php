@@ -32,6 +32,8 @@
                                     <th>Product Image</th>
                                     <th>Product Name</th>
                                     <th>Manufactured By</th>
+                                    <th>Date Manufactured</th>
+                                    <th>Expiry Date</th>
                                     <th>Current Qty</th>
                                     <th>Price</th>
                                     <th>Verification Token</th>
@@ -51,9 +53,9 @@
                                         </td>
 
                                         <td>{{ $product->product->product_name }}</td>
-
                                         <td>{{ $product->product->manufacturer->user->name }}</td>
-
+                                        <td>{{ $product->product->manufactured_date }}</td>
+                                        <td>{{ $product->product->expiry_date }}</td>
                                         <td>{{ $product->quantity }}</td>
 
                                         <td class="td-price">${{ $product->selling_price }}</td>

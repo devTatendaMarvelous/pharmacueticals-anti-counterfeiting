@@ -20,8 +20,10 @@ class Product extends Model
         "is_published",
         "minimun_order",
         "serial",
-    "verification_token",
-        "is_verified"
+        "verification_token",
+        "is_verified",
+        "manufactured_date" ,
+        "expiry_date"
     ];
     public function category()
     {

@@ -36,7 +36,9 @@ class ProductsController extends Controller
             $product = $request->validate([
                 "product_name" => "required",
                 "serial" => "required",
-                "category_id" => "required"
+                "category_id" => "required",
+                "manufactured_date" => "required",
+                "expiry_date" => "required"
             ]);
 
             $product['manufacturer_id'] = auth()->user()->manufacturer->id;
@@ -76,6 +78,8 @@ class ProductsController extends Controller
         try {
             $product = $request->validate([
                 "product_name" => "required",
+                "manufactured_date" => "required",
+                "expiry_date" => "required"
 
             ]);
 

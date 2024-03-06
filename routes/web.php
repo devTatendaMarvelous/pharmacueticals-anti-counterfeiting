@@ -14,6 +14,8 @@ Route::get('/get-product/{id}', fn($id)=> response()->json(
             'products.product_name',
             'products.product_photo',
             'products.serial',
+            'products.expiry_date',
+            'products.manufactured_date',
             'users.name',
             'pharmacy.name as pharmacy_name'
         ])->first()));

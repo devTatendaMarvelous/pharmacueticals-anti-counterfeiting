@@ -22,6 +22,8 @@
                                     <th>Product Image</th>
                                     <th>Product Name</th>
                                     <th>Category</th>
+                                    <th>Date Manufactured</th>
+                                    <th>Expiry Date</th>
                                     <th>Status</th>
                                     <th>Option</th>
                                 </tr>
@@ -40,6 +42,8 @@
                                         <td>{{ $product->product_name }}</td>
 
                                         <td>{{ $product->category_name }}</td>
+                                        <td>{{ $product->manufactured_date }}</td>
+                                        <td>{{ $product->expiry_date }}</td>
 
                                         <td>
                                             <p class="
@@ -121,6 +125,11 @@
                                                                 <input type="text" class="mb-3 form-control"
                                                                        name="product_name"
                                                                        value="{{ $product->product_name }}" required>
+
+                                                                <input type="date" class="mb-3 form-control"
+                                                                       name="manufactured_date" value="{{ $product->manufactured_date }}" required>
+                                                                <input type="date" class="mb-3 form-control"
+                                                                       name="expiry_date" value="{{ $product->expiry_date }}" required>
                                                                 <input type="file" class="mb-3 form-control"
                                                                        name="product_photo" placeholder="photo">
                                                             </div>
@@ -165,6 +174,10 @@
                                    value="">
                             <input type="text" class="mb-3 form-control"
                                    name="product_name" placeholder="Name" required>
+                            <input type="date" class="mb-3 form-control"
+                                   name="manufactured_date" placeholder="Date Manufactured" required>
+                            <input type="date" class="mb-3 form-control"
+                                   name="expiry_date" placeholder="Expiry Date" required>
                             <select name="category_id" class="form-select mb-3" required>
                                 <option>Choose Category</option>
                                 @forelse ($categories as $category)
