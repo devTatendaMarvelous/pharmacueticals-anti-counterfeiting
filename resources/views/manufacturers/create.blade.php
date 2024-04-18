@@ -77,6 +77,9 @@
                                                         </label>
                                                         <div class="col-md-9 col-lg-10">
                                                             <input class="form-control" name="tel" required>
+                                                            @error('tel')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>

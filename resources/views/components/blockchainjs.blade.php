@@ -40,12 +40,15 @@
             } else {
             }
         }
+
         const verifyProd = (productId = '', pharmacy = '', serial = '') => {
             document.getElementById(`btnVerify${productId}`).setAttribute('style', 'display:none')
             if (isConnected()) {
                 contract.addVerification(productId, pharmacy, serial).then((res) => {
+
                     console.log(res)
                     const verifyURL = "{{ url('/') }}"
+
                     $.ajax({
                         url: `${verifyURL}/store-token/${productId}`,
                         method: 'GET',
@@ -61,34 +64,14 @@
             if (isConnected()) {
                 // Specify the transaction hash you want to retrieve
                 transactionHash = '0xbd92c9aee699356c6283e014de81760f5b808afbd1365bfe5550e64d54360251';
-                // Retrieve the transaction using the transaction hash
-                //     provider.getTransaction(transactionHash).then((transaction) => {
-                //         console.log('Transaction:', transaction);
-                //         console.log(contract)
-                //         // Decode the data returned by the transaction
-                //         const decodedData = ethers.utils.defaultAbiCoder.decode(['string', 'uint'], transaction.data);
-                //         console.log('Decoded Data:', decodedData);
-                //     }).catch((error) => {
-                //         console.error(error);
-                //     });
-                // }
 
-// Retrieve the transaction
                 provider.getTransaction(transactionHash).then((transaction) => {
-                    // Decode the transaction data
+
+
                    const iface=new ethers.utils.Interface(contractABI)
                     const decodedData = iface.parseTransaction( transaction);
                      console.log('Decoded Data:', decodedData);
-                    // console.log('Decoded Data:', transaction);
-                    // const decodedData = ethers.utils.defaultAbiCoder.decode(['string', 'uint256'], transaction.data);
-                    // console.log('Decoded Data:', decodedData);
-                    // Handle potential overflow error
-                    // const value = BigNumber.from(decodedData[1]);
-                    // if (value.gt(BigNumber.from(Number.MAX_SAFE_INTEGER))) {
-                    //     console.log('Value exceeds safe integer range. Consider using a BigNumber to handle the value.');
-                    // } else {
-                    //     console.log('Decoded Data:', decodedData);
-                    // }
+
                 })
             }
         }

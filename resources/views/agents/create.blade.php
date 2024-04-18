@@ -100,6 +100,9 @@
                                                             class="col-lg-2 col-md-3 col-form-label form-label-title">Telephone Number</label>
                                                        <div class="col-md-9 col-lg-10">
                                                             <input class="form-control" name="tel" type="number" min="10" required>
+                                                           @error('tel')
+                                                           <p class="text-danger">{{ $message }}</p>
+                                                           @enderror
                                                        </div>
                                                   </div>
 
@@ -108,6 +111,9 @@
                                                             class="col-lg-2 col-md-3 col-form-label form-label-title">Cell Phone</label>
                                                        <div class="col-md-9 col-lg-10">
                                                             <input class="form-control" name="cell" type="number" min="10" required>
+                                                           @error('cell')
+                                                           <p class="text-danger">{{ $message }}</p>
+                                                           @enderror
                                                        </div>
                                                   </div>
 

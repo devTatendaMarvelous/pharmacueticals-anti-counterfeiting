@@ -38,7 +38,7 @@ class ManufacturersController extends Controller
             $agent = $request->validate([
                 'name' => 'required',
                 'email' => 'required',
-                'tel' => 'required',
+                'tel' =>  ['required','unique:agents','min:9','max:10','numeric'],
                 'address' => 'required',
                 'photo' => 'required'
             ]);
