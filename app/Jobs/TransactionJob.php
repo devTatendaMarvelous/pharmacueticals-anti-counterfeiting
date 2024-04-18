@@ -21,6 +21,7 @@ class TransactionJob implements ShouldQueue
      */
     public function __construct($data)
     {
+
         $this->data=$data;
     }
 
@@ -29,11 +30,12 @@ class TransactionJob implements ShouldQueue
      */
     public function handle(): void
     {
-
+        dd('sent');
             MailWrapper::transactionSuccess($this->data['email'], [
                 'number' => $this->data['number'],
                 'amount' => $this->data['order_amount'],
                 'balance' => $this->data['balance'],
             ]);
+
     }
 }

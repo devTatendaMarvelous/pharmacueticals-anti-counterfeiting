@@ -1,5 +1,5 @@
 <x-dashboard>
-            
+
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card card-table">
@@ -18,7 +18,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Notification</th>
-                                                 
+
                                                     <th>Option</th>
                                                 </tr>
                                             </thead>
@@ -26,13 +26,13 @@
                                             <tbody>
                                              @forelse ($notifications as $notification)
                                                   <tr >
-                                                    
+
                                                     <td >{{ $notification-> notification}}</td>
 
                                                     <td>
                                                         <ul>
                                                              @if( $notification->is_published===0 )
-                                                                        
+
                                                                         <li>
                                                                             <a href="{{ route('notifications.publish',[$notification->id]) }}" class="btn btn-primary">
                                                                                 Publish
@@ -87,9 +87,9 @@
                                                        </div>
                                                   </div>
                                              @empty
-                                                  <p class="text-center">No Users Available</p>
+                                                  <p class="text-center">No Notifications Available</p>
                                              @endforelse
-                                                
+
 
                                             </tbody>
                                         </table>

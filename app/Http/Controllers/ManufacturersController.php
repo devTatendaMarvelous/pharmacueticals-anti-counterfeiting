@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Exception;
+use Illuminate\Support\Facades\Validator;
 
 class ManufacturersController extends Controller
 {
@@ -34,30 +35,39 @@ class ManufacturersController extends Controller
     public function store(Request $request)
     {
         try {
+            $validator = $this->validateData($request);
+            if ($validator->status) {
             DB::beginTransaction();
-            $agent = $request->validate([
-                'name' => 'required',
-                'email' => 'required',
-                'tel' =>  ['required','unique:agents','min:9','max:10','numeric'],
-                'address' => 'required',
-                'photo' => 'required'
-            ]);
 
-            $agent['type'] = 'Manufacturer';
-            $agent['photo'] = $request->file('photo')->store('ManufacturerLogos', 'public');
-            $agent['licence'] = $request->file('photo')->store('ManufacturerLicences', 'public');
-            $agent['password'] = Hash::make('password');
-            $user = User::create($agent);
-            $agent['user_id'] = $user->id;
-            Manufacturer::create($agent);
+        $manufacturer = $request->all();
+//        dd(strlen($manufacturer['tel']));
+                if (strlen($manufacturer['tel']) < 9){
+                    Toastr::error('Phone number cannot be less than 9 digits', 'Phone number too short');
+                    return redirect()->back();
+                }elseif (strlen($manufacturer['tel']) > 10){
+                    Toastr::error('Phone number cannot be more than 10 digits', 'Phone number too long');
+                    return redirect()->back();
+                }
+            $manufacturer['type'] = 'Manufacturer';
+            $manufacturer['photo'] = $request->file('photo')->store('ManufacturerLogos', 'public');
+            $manufacturer['licence'] = $request->file('photo')->store('ManufacturerLicences', 'public');
+            $manufacturer['password'] = Hash::make('password');
+            $user = User::create($manufacturer);
+            $manufacturer['user_id'] = $user->id;
+            Manufacturer::create($manufacturer);
             Toastr::success('Manufacturer Account created successfully', 'success');
             DB::commit();
+
             return redirect('manufacturers');
+
+            } else {
+                return redirect()->back()->withErrors($validator->errors)->withInput();
+            }
         } catch (Exception $e) {
             DB::rollBack();
 
-            Toastr::error('An error occured while processing', 'error');
-            return redirect()->back()->withErrors($e->getMessage())->withInput();
+            Toastr::error($e->getMessage(), 'error');
+            return back();
         }
     }
 
@@ -92,4 +102,27 @@ class ManufacturersController extends Controller
     {
         //
     }
+
+    function validateData($request)
+    {
+        $rules = [
+            'name' => 'required',
+            'email' => 'required',
+            'tel' =>  ['required','unique:agents','numeric'],
+            'address' => 'required',
+            'photo' => 'required'
+        ];
+
+        $customMessages = [
+            'tel.numeric' => 'phone number can only contain numeric characters',
+        ];
+        $validator = Validator::make($request->all(), $rules, $customMessages);
+        if ($validator->fails()) {
+            $validation = json_decode(json_encode(['status' => false, 'errors' => $validator->errors()]), false);
+        } else {
+            $validation = json_decode(json_encode(['status' => true]), false);
+        }
+        return $validation;
+    }
+
 }

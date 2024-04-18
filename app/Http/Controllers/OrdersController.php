@@ -17,6 +17,7 @@ use App\Jobs\SettleSalesJob;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class OrdersController extends Controller
@@ -85,7 +86,7 @@ class OrdersController extends Controller
     public function store(Request $request, $id)
     {
         try {
-            // dd($request->all());
+
             $card=[];
             $order = $request->validate([
                 "delivery" => "required",
@@ -94,23 +95,8 @@ class OrdersController extends Controller
                 "payment_method" => "required",
                 "currency" => "required",
             ]);
-            if($request->payment_method=='Ecocash'){
-                    $data = [
-                    'name' => Auth::user()->name,
-                    'merchant_email' => env('FLIXTECHS_EMAIL'),
-                    'phone' => $request->account_number,
-                    'reference' => 'Order',
-                    'amount' => floatval($order['order_amount']),
-                ];
-
-                $response = ClientWrapper::postRequest($data);
-                if (!$response){
-                    Toastr::error('An error occured while processing', 'error');
-                    return back();
-                }else{
-                    $order['order_number'] = 'OMS-O' . random_int(100,10000);
-                }
-            }else if($request->payment_method=='Master') {
+            DB::beginTransaction();
+            if($request->payment_method=='Master') {
                 $card = Card::where('name', $request->name)->where('expiry_date', $request->expiry)->where('cvv', $request->cvv)->first();
 
                 if ($card && substr($card->number, -4) == substr(intval($request->number), -4)) {
@@ -139,11 +125,13 @@ class OrdersController extends Controller
                     $order['delivery_date'] = Carbon::parse(now())->format('Y-m-d');
                     $order['currency'] = 'USD';
                     $order = Order::create($order);
+
                     if ($order) {
                         $cart = Cart::find($id);
                         $cart->cart_status = 'Ordered';
                         $cart->save();
                     }
+
                     SettleSalesJob::dispatch();
 
                 $transaction=[
@@ -152,9 +140,18 @@ class OrdersController extends Controller
                     'balance'=>$card->balance,
                     'email'=>Auth::user()->email
                 ];
+
+            sentTransactionEmail($transaction);
+
+            sendOrderEmail(Auth::user(), $order->order_number);
+
+
+                DB::commit();
                     TransactionJob::dispatch($transaction);
+
                     OrderMailJob::dispatch(Auth::user(), $order->order_number);
                     Toastr::success('Order  successfully placed.  Thank you for shopping with us👏', 'success');
+
                     return redirect('orders');
 
         } catch (\Exception $e) {

@@ -1,8 +1,11 @@
 <?php
 
 use App\Models\Cart;
+use App\Models\ClientProfile;
 use App\Models\Notification;
+use App\Models\Order;
 use App\Models\Product;
+use App\Wrappers\MailWrapper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
@@ -40,4 +43,52 @@ function contractABI(){
 }
 function getProduct($id){
     return json_encode(json_decode(Product::find($id),true));
+}
+
+function sentTransactionEmail($data)
+{
+    MailWrapper::transactionSuccess($data['email'], [
+        'number' => $data['number'],
+        'amount' => $data['order_amount'],
+        'balance' => $data['balance'],
+    ]);
+}
+
+function sendOrderEmail( $user  ,$order ){
+
+//    dd($order);
+    $cartId = Order::where('order_number', $order)->first()->cart_id;
+
+    $items =  Cart::join('cart_items', 'cart_items.cart_id', '=', 'carts.id')
+        ->join('stocks', 'stocks.id', '=', 'cart_items.stock_id')
+        ->join('products', 'products.id', '=', 'stocks.product_id')
+        ->where('carts.id', $cartId)
+        ->get([
+            'carts.id',
+            'products.product_name',
+            'stocks.selling_price',
+            'products.product_photo',
+            'cart_items.quantity',
+        ]);
+
+
+//
+//                Cart::join('cart_items', 'cart_items.cart_id', '=', 'carts.id')
+//                ->join('products', 'products.id', '=', 'cart_items.product_id')
+//                ->where('carts.id', $cartId)
+//                ->get([
+//                    'carts.id',
+//                    'products.product_name',
+//                    'products.selling_price',
+//                    'products.product_photo',
+//                    'cart_items.quantity',
+//                ]);
+
+    $address = ClientProfile::where('client_id', $user->id)->first()->home;
+    MailWrapper::emailNotify($user->email, [
+        'address' => $address,
+        'products' => $items,
+        'order_number' => $order,
+    ]);
+
 }

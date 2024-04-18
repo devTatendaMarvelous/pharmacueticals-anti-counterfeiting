@@ -40,16 +40,30 @@ class OrderMailJob implements ShouldQueue
 
             $cartId = Order::where('order_number', $this->order)->first()->cart_id;
 
-            $items = Cart::join('cart_items', 'cart_items.cart_id', '=', 'carts.id')
-                ->join('products', 'products.id', '=', 'cart_items.product_id')
+            $items =  Cart::join('cart_items', 'cart_items.cart_id', '=', 'carts.id')
+                ->join('stocks', 'stocks.id', '=', 'cart_items.stock_id')
+                ->join('products', 'products.id', '=', 'stocks.product_id')
                 ->where('carts.id', $cartId)
                 ->get([
                     'carts.id',
                     'products.product_name',
-                    'products.selling_price',
+                    'stocks.selling_price',
                     'products.product_photo',
                     'cart_items.quantity',
                 ]);
+
+
+//
+//                Cart::join('cart_items', 'cart_items.cart_id', '=', 'carts.id')
+//                ->join('products', 'products.id', '=', 'cart_items.product_id')
+//                ->where('carts.id', $cartId)
+//                ->get([
+//                    'carts.id',
+//                    'products.product_name',
+//                    'products.selling_price',
+//                    'products.product_photo',
+//                    'cart_items.quantity',
+//                ]);
 
             $address = ClientProfile::where('client_id', $this->user->id)->first()->home;
             MailWrapper::emailNotify($this->user->email, [

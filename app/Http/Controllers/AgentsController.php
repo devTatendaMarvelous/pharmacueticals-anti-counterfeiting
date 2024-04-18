@@ -62,6 +62,19 @@ class AgentsController extends Controller
                 'agent_description'
                 => 'required',
             ]);
+            if (strlen($agent['tel']) < 9){
+                Toastr::error('Phone number cannot be less than 9 digits', 'Phone number too short');
+                return redirect()->back();
+            }elseif (strlen($agent['tel']) > 10){
+                Toastr::error('Phone number cannot be more than 10 digits', 'Phone number too long');
+                return redirect()->back();
+            }else if (strlen($agent['cell']) < 9){
+                Toastr::error('Phone number cannot be less than 9 digits', 'Phone number too short');
+                return redirect()->back();
+            }elseif (strlen($agent['cell']) > 10){
+                Toastr::error('Phone number cannot be more than 10 digits', 'Phone number too long');
+                return redirect()->back();
+            }
             if($request->has('blockchain_private_key')){
                 $agent['blockchain_private_key']=Crypt::encrypt($request->blockchain_private_key);
 
