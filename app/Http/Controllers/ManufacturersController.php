@@ -55,9 +55,9 @@ class ManufacturersController extends Controller
             return redirect('manufacturers');
         } catch (Exception $e) {
             DB::rollBack();
-            dd($e->getMessage());
+
             Toastr::error('An error occured while processing', 'error');
-            return back();
+            return redirect()->back()->withErrors($e->getMessage())->withInput();
         }
     }
 
