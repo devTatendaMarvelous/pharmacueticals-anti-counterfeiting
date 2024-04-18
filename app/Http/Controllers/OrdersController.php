@@ -147,9 +147,6 @@ class OrdersController extends Controller
 
 
                 DB::commit();
-                    TransactionJob::dispatch($transaction);
-
-                    OrderMailJob::dispatch(Auth::user(), $order->order_number);
                     Toastr::success('Order  successfully placed.  Thank you for shopping with us👏', 'success');
 
                     return redirect('orders');
