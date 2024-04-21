@@ -215,7 +215,7 @@
                                     </div>
                                     <div class="checkout-box">
                                         <div class="checkout-title">
-                                            <h4>Payment Option</h4>
+                                            <h4>Payment </h4>
                                         </div>
 
                                         <div class="checkout-detail">
@@ -285,43 +285,6 @@
                                                 </div>
 
 
-                                                <div class="accordion-item">
-                                                    <div class="accordion-header" id="flush-headingThree">
-                                                        <div class="accordion-button collapsed"
-                                                            data-bs-toggle="collapse"
-                                                            data-bs-target="#flush-collapseThree">
-                                                            <div class="custom-form-check form-check mb-0">
-                                                                <label class="form-check-label" for="wallet"><input
-                                                                        class="form-check-input mt-0" name="payment_method" value="Ecocash"  type="radio"
-                                                                        name="flexRadioDefault"  id="wallet">Ecocash</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div id="flush-collapseThree" class="accordion-collapse collapse"
-                                                        data-bs-parent="#accordionFlushExample">
-                                                        <div class="accordion-body">
-                                                            <h5 class="text-uppercase mb-4">Enter Your Number And Pick Your Currency
-                                                            </h5>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="custom-form-check form-check">
-                                                                       <input type="text" class="form-control" name="account_number" placeholder="Enter Ecocash Number" value="{{ $profile->client_phone }}">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="custom-form-check form-check">
-                                                                        <select name="currency" id="currency" class="form-control">
-                                                                            <option value="USD">USD</option>
-                                                                            <option value="ZWL">ZWL</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
