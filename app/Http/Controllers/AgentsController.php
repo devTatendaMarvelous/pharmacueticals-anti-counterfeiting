@@ -54,9 +54,9 @@ class AgentsController extends Controller
                 'email' => 'required',
                 'password' => ['required', 'confirmed'],
                 'tel' =>
-                ['required','unique:agents','min:9','max:10','numeric'],
+                ['required','unique:agents','numeric'],
                 'cell'
-                =>  ['required','unique:agents','min:9','max:10','numeric'],
+                =>  ['required','unique:agents','numeric'],
                 'agent_address'
                 => 'required',
                 'agent_description'
@@ -94,7 +94,7 @@ class AgentsController extends Controller
             return redirect('pharmacies');
         } catch (\Exception $e) {
             DB::rollBack();
-
+dd($e->getMessage());
             Toastr::error('An error occured while processing', 'error');
             return back();
         }
