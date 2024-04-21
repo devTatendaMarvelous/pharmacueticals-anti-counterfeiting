@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Crypt;
 function cartItems()
 {
     if (Auth::check()) {
-        $items = Cart::join('cart_items', 'cart_items.cart_id', '=', 'carts.id')->where('carts.cart_status', 'Pending')->where('carts.client_id', Auth::user()->id)->get()->count();
+        $items = Cart::join('cart_items', 'cart_items.cart_id', '=', 'carts.id')
+            ->where('carts.cart_status', 'Pending')
+            ->where('carts.client_id', Auth::user()->id)->get()->count();
         return $items;
     } else {
         return 0;
@@ -45,6 +47,7 @@ function getProduct($id){
     return json_encode(json_decode(Product::find($id),true));
 }
 
+
 function sentTransactionEmail($data)
 {
     MailWrapper::transactionSuccess($data['email'], [
@@ -56,7 +59,6 @@ function sentTransactionEmail($data)
 
 function sendOrderEmail( $user  ,$order ){
 
-//    dd($order);
     $cartId = Order::where('order_number', $order)->first()->cart_id;
 
     $items =  Cart::join('cart_items', 'cart_items.cart_id', '=', 'carts.id')
@@ -71,18 +73,6 @@ function sendOrderEmail( $user  ,$order ){
             'cart_items.quantity',
         ]);
 
-
-//
-//                Cart::join('cart_items', 'cart_items.cart_id', '=', 'carts.id')
-//                ->join('products', 'products.id', '=', 'cart_items.product_id')
-//                ->where('carts.id', $cartId)
-//                ->get([
-//                    'carts.id',
-//                    'products.product_name',
-//                    'products.selling_price',
-//                    'products.product_photo',
-//                    'cart_items.quantity',
-//                ]);
 
     $address = ClientProfile::where('client_id', $user->id)->first()->home;
     MailWrapper::emailNotify($user->email, [

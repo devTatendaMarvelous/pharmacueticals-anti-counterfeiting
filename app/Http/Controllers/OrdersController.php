@@ -159,6 +159,7 @@ class OrdersController extends Controller
     }
 
     /**
+     *
      * Display the specified resource.
      */
     public function show( $id)
