@@ -237,9 +237,9 @@
                     <h6 class="text-content">Copyright {{date('Y')}}  ©  {{ config('app.name') }} by Nicole</h6>
                 </div>
 
-                <div class="payment">
-                    <img src="{{asset('frontend/images/payment/1.png')}}" class="blur-up lazyload" alt="">
-                </div>
+{{--                <div class="payment">--}}
+{{--                    <img src="{{asset('frontend/images/payment/1.png')}}" class="blur-up lazyload" alt="">--}}
+{{--                </div>--}}
 
                 <div class="social-link">
                     <h6 class="text-content">Stay connected :</h6>

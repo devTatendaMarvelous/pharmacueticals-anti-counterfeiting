@@ -174,8 +174,10 @@
                                    value="">
                             <input type="text" class="mb-3 form-control"
                                    name="product_name" placeholder="Name" required>
+                            <label>Manufactured Date</label>
                             <input type="date" class="mb-3 form-control"
                                    name="manufactured_date" placeholder="Date Manufactured" required>
+                            <label>Expiry Date</label>
                             <input type="date" class="mb-3 form-control"
                                    name="expiry_date" placeholder="Expiry Date" required>
                             <select name="category_id" class="form-select mb-3" required>
