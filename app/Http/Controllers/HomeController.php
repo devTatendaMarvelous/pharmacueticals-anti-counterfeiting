@@ -39,7 +39,7 @@ class HomeController extends Controller
                 }
                 return redirect('orders');
             }
-            $orders = Order::where('status', 'Ordered')->get();
+            $orders = Order::where('status', 'Ordered')->orWhere('status', 'Ordered')->get();
             $products =Product::where('is_active', 1)->get();
             $clients = User::where('type', 'Client')->get();
             $sales = null;

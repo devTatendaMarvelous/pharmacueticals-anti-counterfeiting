@@ -124,6 +124,7 @@ class OrdersController extends Controller
                     $order['status'] = 'Paid';
                     $order['delivery_date'] = Carbon::parse(now())->format('Y-m-d');
                     $order['currency'] = 'USD';
+
                     $order = Order::create($order);
 
                     if ($order) {
