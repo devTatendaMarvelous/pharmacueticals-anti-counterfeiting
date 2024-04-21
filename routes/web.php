@@ -3,6 +3,7 @@
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/sales-settlement', fn ()=>settleSales());
 Route::get('/get-product/{id}', fn($id)=> response()->json(
     Product::join('stocks','stocks.product_id','=','products.id')
         ->join('manufacturers','manufacturers.id','=','products.manufacturer_id')

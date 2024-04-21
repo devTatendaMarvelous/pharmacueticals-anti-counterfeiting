@@ -1,10 +1,13 @@
 <?php
 
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\ClientProfile;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Sale;
+use App\Models\Stock;
 use App\Wrappers\MailWrapper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -47,6 +50,35 @@ function getProduct($id){
     return json_encode(json_decode(Product::find($id),true));
 }
 
+function settleSales()
+{
+    $cartItems = CartItem::where('is_settled', 0)->get();
+    foreach ($cartItems as $item) {
+
+
+        $product = Stock::join('users', 'users.id', '=', 'stocks.pharmacy_id')
+            ->where('stocks.id', $item->stock_id)
+            ->select(['stocks.selling_price', 'users.id'])->first();
+
+
+        $order = Order::where('cart_id', $item->cart_id)->first();
+
+        $order_id = $order->id;
+
+        $sale_amount = $product->selling_price * $item->quantity;
+        $agent_id = $product->id;
+
+        $sale = Sale::create([
+            'order_id' => $order_id,
+            'sales_amount' => $sale_amount,
+            'pharmacy_id' => $agent_id
+        ]);
+
+        $item->is_settled = 1;
+        $item->save();
+    }
+//    return true;
+}
 
 function sentTransactionEmail($data)
 {

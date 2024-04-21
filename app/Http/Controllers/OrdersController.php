@@ -132,7 +132,7 @@ class OrdersController extends Controller
                         $cart->save();
                     }
 
-//                    SettleSalesJob::dispatch();
+            settleSales();
 
                 $transaction=[
                     'number'=>substr($card->number,-4),
