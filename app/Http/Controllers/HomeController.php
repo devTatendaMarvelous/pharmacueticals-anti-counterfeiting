@@ -69,7 +69,7 @@ class HomeController extends Controller
                 ->with('order_list', $order_list)
                 ->with('revenue', $revenue);
         } catch (\Exception $e) {
-            Toastr::error($e->getMessage(), 'error');
+
             Toastr::error('An error occured while processing', 'error');
             return back();
         }
