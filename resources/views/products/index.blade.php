@@ -190,7 +190,7 @@
                                 @endforelse
                             </select>
                             <input type="text" class="mb-3 form-control"
-                                   name="serial" placeholder="Serial Number" required>
+                                   name="serial" placeholder="Batch Number" required>
                             <input type="file" class="mb-3 form-control"
                                    name="product_photo" placeholder="photo" required>
                         </div>

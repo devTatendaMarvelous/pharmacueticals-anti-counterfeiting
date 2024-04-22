@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sale;
 
+use App\Models\Stock;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
@@ -39,7 +40,7 @@ class HomeController extends Controller
                 }
                 return redirect('orders');
             }
-            $orders = Order::where('status', 'Ordered')->orWhere('status', 'Ordered')->get();
+            $orders = Order::where('status', 'Ordered')->orWhere('status', 'Paid')->get();
             $products =Product::where('is_active', 1)->get();
             $clients = User::where('type', 'Client')->get();
             $sales = null;
@@ -47,7 +48,7 @@ class HomeController extends Controller
             if (Auth::user()->type === 'Agent') {
                 $sales = Sale::where('pharmacy_id', Auth::user()->id)->get();
 
-                $products = Product::all();//where('pharmacy_id', Auth::user()->id)->where('is_published', 1)->get();
+                $products = Stock::where('pharmacy_id', Auth::user()->id)->where('is_published', 1)->get();
             } else {
                 $sales = Sale::all();
             }

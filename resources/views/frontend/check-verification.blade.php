@@ -163,7 +163,7 @@
                               <img class="card-img-top" src="${url}/storage/${response.product_photo}" alt="Card image cap">
                               <div class="card-body">
                                 <h5 class="card-title"><strong>Product: </strong>${response.product_name}</h5>
-                                <p class="card-text"><strong>Serial: </strong>${response.serial}</p>
+                                <p class="card-text"><strong>Batch Number: </strong>${response.serial}</p>
                                 <h5 class="card-title"><strong>Pharmacy Selling: </strong> ${response.pharmacy_name}</h5>
                                 <h5 class="card-title"><strong>Date Manufactured: </strong> ${response.manufactured_date}</h5>
                                 <h5 class="card-title"><strong>Expiry Date: </strong> ${response.expiry_date}</h5>

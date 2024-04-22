@@ -173,7 +173,7 @@ dd($e->getMessage());
             $agentDetails = Agent::where('id', $id)->get()[0];
             $agentDetails->delete();
             Toastr::success('Pharmacy deleted successfully', 'success');
-            return redirect('agents');
+            return redirect('pharmacies');
         } catch (\Exception $exception) {
             Toastr::error('An error occured while processing', 'error');
             return back();

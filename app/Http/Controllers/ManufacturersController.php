@@ -84,7 +84,7 @@ class ManufacturersController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('manufacturers.edit')->with('manufacturer',Manufacturer::find($id));
     }
 
     /**
@@ -92,7 +92,25 @@ class ManufacturersController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+
+                DB::beginTransaction();
+                $manufacturer = $request->all();
+               $man= Manufacturer::find($id);
+            $man->update($manufacturer);
+                $man->user->update($manufacturer);
+                Toastr::success('Manufacturer Account updated successfully', 'success');
+                DB::commit();
+
+                return redirect('manufacturers');
+
+
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            Toastr::error($e->getMessage(), 'error');
+            return back();
+        }
     }
 
     /**
@@ -100,7 +118,12 @@ class ManufacturersController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $man=Manufacturer::find($id);
+        $man->delete();
+        $man->user->delete();
+
+        Toastr::success('Manufacturer Account deleted successfully', 'success');
+        return redirect('manufacturers');
     }
 
     function validateData($request)
@@ -110,7 +133,7 @@ class ManufacturersController extends Controller
             'email' => 'required',
             'tel' =>  ['required','unique:agents','numeric'],
             'address' => 'required',
-            'photo' => 'required'
+
         ];
 
         $customMessages = [
