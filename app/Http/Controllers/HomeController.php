@@ -48,7 +48,7 @@ class HomeController extends Controller
             if (Auth::user()->type == 'Manufacturer') {
                 $sales = Sale::where('pharmacy_id', Auth::user()->id)->get();
 
-                $products = Product::where('manufacturer_id', Auth::user()->id)->where('is_active', 1)->get();
+                $products = Product::where('manufacturer_id', Auth::user()->manufacturer->id)->where('is_active', 1)->get();
                 $order_list = Order::orderBy('id', 'desc')->take(6)->get();
             } elseif (Auth::user()->type == 'Agent') {
                 $sales = Sale::where('pharmacy_id', Auth::user()->id)->get();
