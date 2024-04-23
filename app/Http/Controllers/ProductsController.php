@@ -40,7 +40,7 @@ class ProductsController extends Controller
                 "manufactured_date" => "required",
                 "expiry_date" => "required"
             ]);
-            if ($product['serial']<6 and $product['serial']>9 ){
+            if (strlen( $product['serial'] )<6 and strlen($product['serial'])>9 ){
 
                 Toastr::error('Batch number must be between 6 and 9', 'error');
                 return back();
@@ -87,7 +87,7 @@ class ProductsController extends Controller
 
             ]);
 
-            if ($product['serial']<6 and $product['serial']>9 ){
+            if (strlen( $product['serial'] )<6 and strlen($product['serial'])>9 ){
 
                 Toastr::error('Batch number must be between 6 and 9', 'error');
                 return back();

@@ -55,7 +55,6 @@ function settleSales()
     $cartItems = CartItem::where('is_settled', 0)->get();
     foreach ($cartItems as $item) {
 
-
         $product = Stock::join('users', 'users.id', '=', 'stocks.pharmacy_id')
             ->where('stocks.id', $item->stock_id)
             ->select(['stocks.selling_price', 'users.id'])->first();
