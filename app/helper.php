@@ -65,7 +65,7 @@ function settleSales()
         $order_id = $order->id;
 
         $sale_amount = $product->selling_price * $item->quantity;
-        $agent_id = $product->id;
+        $agent_id = $product->pharmacy_id;
 
         $sale = Sale::create([
             'order_id' => $order_id,

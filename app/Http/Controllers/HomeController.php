@@ -50,13 +50,18 @@ class HomeController extends Controller
 
                 $products = Product::where('manufacturer_id', Auth::user()->manufacturer->id)->where('is_active', 1)->get();
                 $order_list = Order::orderBy('id', 'desc')->take(6)->get();
+
             } elseif (Auth::user()->type == 'Agent') {
-                $sales = Sale::where('pharmacy_id', Auth::user()->id)->get();
+
+                $sales = Sale::where('pharmacy_id', Auth::user()->agent->id)->get();
                 $products = Stock::where('pharmacy_id', Auth::user()->agent->id)->where('is_published', 1)->get();
                 $order_list = Order::orderBy('id', 'desc')->take(6)->get();
+
             } else {
+
                 $sales = Sale::all();
                 $order_list = Order::orderBy('id', 'desc')->take(6)->get();
+
             }
 
 
