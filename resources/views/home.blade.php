@@ -3,6 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- chart caard section start -->
+            @if(auth()->user()->type!='Manufacturer')
             <div class="col-sm-6 col-xxl-3 col-lg-6">
                 <div class="main-tiles border-5 border-0  card-hover card o-hidden">
                     <div class="custome-1-bg b-r-4 card-body">
@@ -40,7 +41,7 @@
                     </div>
                 </div>
             </div>
-
+            @endif
             <div class="col-sm-6 col-xxl-3 col-lg-6">
                 <div class="main-tiles border-5 card-hover border-0  card o-hidden">
                     <div class="custome-3-bg b-r-4 card-body">

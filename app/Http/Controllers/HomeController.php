@@ -41,19 +41,25 @@ class HomeController extends Controller
                 return redirect('orders');
             }
             $orders = Order::where('status', 'Ordered')->orWhere('status', 'Paid')->get();
-            $products =Stock::where('is_published', 1)->get();
+
             $clients = User::where('type', 'Client')->get();
             $sales = null;
 
-            if (Auth::user()->type === 'Manufacturer') {
+            if (Auth::user()->type == 'Manufacturer') {
                 $sales = Sale::where('pharmacy_id', Auth::user()->id)->get();
 
-                $products = Stock::where('pharmacy_id', Auth::user()->id)->where('is_published', 1)->get();
+                $products = Product::where('manufacturer_id', Auth::user()->id)->where('is_active', 1)->get();
+                $order_list = Order::orderBy('id', 'desc')->take(6)->get();
+            } elseif (Auth::user()->type == 'Agent') {
+                $sales = Sale::where('pharmacy_id', Auth::user()->id)->get();
+                $products = Stock::where('pharmacy_id', Auth::user()->agent->id)->where('is_published', 1)->get();
+                $order_list = Order::orderBy('id', 'desc')->take(6)->get();
             } else {
                 $sales = Sale::all();
+                $order_list = Order::orderBy('id', 'desc')->take(6)->get();
             }
 
-            $order_list = Order::orderBy('id', 'desc')->take(6)->get();
+
 
             $revenue = 0.0;
 
