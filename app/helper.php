@@ -55,9 +55,7 @@ function settleSales()
     $cartItems = CartItem::where('is_settled', 0)->get();
     foreach ($cartItems as $item) {
 
-        $product = Stock::join('users', 'users.id', '=', 'stocks.pharmacy_id')
-            ->where('stocks.id', $item->stock_id)
-            ->select(['stocks.selling_price', 'users.id'])->first();
+        $product = Stock::where('stocks.id', $item->stock_id)->first();
 
 
         $order = Order::where('cart_id', $item->cart_id)->first();
@@ -65,7 +63,7 @@ function settleSales()
         $order_id = $order->id;
 
         $sale_amount = $product->selling_price * $item->quantity;
-        $agent_id = $product->pharmacy_id;
+        $agent_id = $product->pharmacy->id;
 
         $sale = Sale::create([
             'order_id' => $order_id,

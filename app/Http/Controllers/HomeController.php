@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agent;
 use App\Models\Sale;
 
 use App\Models\Stock;
@@ -44,10 +45,10 @@ class HomeController extends Controller
 
             $clients = User::where('type', 'Client')->get();
             $sales = null;
-
+$pharmacies =[];
             if (Auth::user()->type == 'Manufacturer') {
                 $sales = Sale::where('pharmacy_id', Auth::user()->id)->get();
-
+                $pharmacies = Agent::all()->count();
                 $products = Product::where('manufacturer_id', Auth::user()->manufacturer->id)->where('is_active', 1)->get();
                 $order_list = Order::orderBy('id', 'desc')->take(6)->get();
 
@@ -55,15 +56,18 @@ class HomeController extends Controller
 
                 $sales = Sale::where('pharmacy_id', Auth::user()->agent->id)->get();
                 $products = Stock::where('pharmacy_id', Auth::user()->agent->id)->where('is_published', 1)->get();
-                $order_list = Order::orderBy('id', 'desc')->take(6)->get();
+                $order_list = Order::whereHas('cart', function ($query) {
+                    $query->whereHas('items', function ($query) {
+                        $query->whereHas('stock', function ($query) {
+                            $query->where('pharmacy_id', Auth::user()->agent->id);
+                        });
+                    });
+                })->orderBy('id', 'desc')->take(6)->get();
 
             } else {
-
                 $sales = Sale::all();
-
                 $products = Stock::where('is_published', 1)->get();
                 $order_list = Order::orderBy('id', 'desc')->take(6)->get();
-
             }
 
 
@@ -76,6 +80,7 @@ class HomeController extends Controller
 
             return view('home')
                 ->with('orders', $orders->count())
+                ->with('pharmacies', $pharmacies)
                 ->with('products', $products->count())
                 ->with('clients', $clients->count())
                 ->with('products', $products->count())

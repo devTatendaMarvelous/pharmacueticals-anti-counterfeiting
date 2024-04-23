@@ -20,4 +20,8 @@ class Order extends Model
         'status',
         'order_number',
     ];
+
+    public function cart(){
+        return $this->belongsTo(Cart::class, 'cart_id');
+    }
 }

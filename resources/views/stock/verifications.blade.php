@@ -13,7 +13,7 @@
                                                     <tr>
                                                         <th>Product Image</th>
                                                         <th>Product Name</th>
-                                                        <th>Category</th>
+                                                        <th>Pharmacy</th>
                                                         <th>Price</th>
                                                         <th>Status</th>
                                                         <th>Action On Request</th>
@@ -29,7 +29,7 @@
                                                                 </div>
                                                             </td>
                                                             <td>{{ $req->stock->product->product_name }}</td>
-                                                            <td>{{ $req->stock->product->category->category_name }}</td>
+                                                            <td>{{ $req->stock->pharmacy->user->name }}</td>
                                                             <td class="td-price">${{ $req->stock->product->selling_price }}</td>
                                                             <td>
                                                                 <p class="
@@ -96,7 +96,7 @@
                                                             <div class="modal-dialog  modal-dialog-centered">
                                                                 <div class="modal-content">
                                                                     <div class="modal-body">
-                                                                        <h5 class="modal-title" id="staticBackdropLabel">Reject Verification For {{  $req->stock->product->product_name  }}</h5>
+                                                                        <h5 class="modal-title" id="staticBackdropLabel">Approve Verification For {{  $req->stock->product->product_name  }}</h5>
                                                                         <p>Are you sure you want to approve?</p>
 
 

@@ -47,10 +47,9 @@
                     <div class="custome-3-bg b-r-4 card-body">
                         <div class="media static-top-widget">
                             <div class="media-body p-0">
-                                <span class="m-0">Selling Products</span>
-                                <h4 class="mb-0 counter">{{ $products }}
-                                    <a href="add-new-product.html" class="badge badge-light-secondary grow">
-                                        ADD NEW</a>
+                                <span class="m-0">{{auth()->user()->type == 'Manufacturer'? ' Pharmacies':'Selling Products'}} </span>
+                                <h4 class="mb-0 counter">{{auth()->user()->type == 'Manufacturer'?$pharmacies: $products }}
+
                                 </h4>
                             </div>
 

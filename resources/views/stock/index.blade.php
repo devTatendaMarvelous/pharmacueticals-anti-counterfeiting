@@ -243,7 +243,7 @@
                         <div class="container">
                             <input type="hidden" name="product_id" id="product_id">
                             <input type="text" class="mb-3 form-control"
-                                   name="serial" placeholder="Serial Number" onkeyup="checkSerial()" id="serial" required>
+                                   name="serial" placeholder="Batch Number  " onkeyup="checkSerial()" id="serial" required>
                             <p class="text-danger" style="color:red;" id="serial-error"></p>
                             <div id="stock-data" style="display: none;">
                                 <input type="text" class="mb-3 form-control"

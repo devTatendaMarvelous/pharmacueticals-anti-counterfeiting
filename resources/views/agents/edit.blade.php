@@ -19,7 +19,7 @@
                                              <li class="nav-item" role="presentation">
                                                   <button class="nav-link" id="pills-profile-tab"
                                                        data-bs-toggle="pill" data-bs-target="#pills-profile"
-                                                       type="button">Agent Details</button>
+                                                       type="button">Pharmacy Details</button>
                                              </li>
                                         </ul>
 

@@ -46,24 +46,7 @@
                                                                             </a>
                                                                         </li>
                                                                     @endif
-                                                            <li>
-                                                                <a href="javascript:void(0)">
-                                                                    <i class="ri-eye-line"></i>
-                                                                </a>
-                                                            </li>
 
-                                                            <li>
-                                                                <a href="javascript:void(0)">
-                                                                    <i class="ri-pencil-line"></i>
-                                                                </a>
-                                                            </li>
-
-                                                            <li>
-                                                                <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                                    data-bs-target="#exampleModalToggle{{ $notification->id }}">
-                                                                    <i class="ri-delete-bin-line"></i>
-                                                                </a>
-                                                            </li>
                                                         </ul>
                                                     </td>
                                                 </tr>

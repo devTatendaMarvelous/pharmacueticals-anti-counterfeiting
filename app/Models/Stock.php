@@ -18,6 +18,9 @@ class Stock extends Model
         "product_description",
         "product_status" ,
     ];
+    public function pharmacy(){
+        return $this->belongsTo(Agent::class,'pharmacy_id');
+    }
     public function product()
     {
         return $this->belongsTo(Product::class,'product_id');

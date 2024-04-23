@@ -19,4 +19,8 @@ class Agent extends Model
         'blockchain_private_key',
         'blockchain_address'
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

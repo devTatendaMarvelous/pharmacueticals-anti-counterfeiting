@@ -148,7 +148,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::get('/check-verification', 'check');
         Route::get('/', 'index');
-        Route::get('/agent/{id}', 'agent')->name('agent');
+        Route::get('/pharmacy/{id}', 'agent')->name('agent');
         Route::get('/category/{id}', 'branch')->name('category');
         Route::get('/cart', 'cart')->name('cart');
         Route::get('/search', 'search')->name('search');
