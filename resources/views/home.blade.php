@@ -82,7 +82,7 @@
                 </div>
             </div>
             <!-- chart card section End -->
-
+            @if(auth()->user()->type!='Manufacturer')
             <!-- Recent orders start-->
             <div class="row">
                 <div class="col-sm-12">
@@ -135,8 +135,8 @@
                     </div>
                 </div>
             </div>
-            <!-- Recent orders end-->
 
+            @endif
         </div>
     </div>
     <!-- Container-fluid Ends-->
