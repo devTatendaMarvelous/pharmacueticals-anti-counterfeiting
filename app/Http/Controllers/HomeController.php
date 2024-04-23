@@ -41,11 +41,11 @@ class HomeController extends Controller
                 return redirect('orders');
             }
             $orders = Order::where('status', 'Ordered')->orWhere('status', 'Paid')->get();
-            $products =Product::where('is_active', 1)->get();
+            $products =Stock::where('is_published', 1)->get();
             $clients = User::where('type', 'Client')->get();
             $sales = null;
 
-            if (Auth::user()->type === 'Agent') {
+            if (Auth::user()->type === 'Manufacturer') {
                 $sales = Sale::where('pharmacy_id', Auth::user()->id)->get();
 
                 $products = Stock::where('pharmacy_id', Auth::user()->id)->where('is_published', 1)->get();
