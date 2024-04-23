@@ -52,7 +52,7 @@ class ProductsController extends Controller
             Product::create($product);
             return redirect('products');
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
+
             Toastr::error('An error occured while processing', 'error');
             return back();
         }
