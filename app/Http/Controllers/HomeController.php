@@ -60,6 +60,8 @@ class HomeController extends Controller
             } else {
 
                 $sales = Sale::all();
+
+                $products = Stock::where('is_published', 1)->get();
                 $order_list = Order::orderBy('id', 'desc')->take(6)->get();
 
             }
