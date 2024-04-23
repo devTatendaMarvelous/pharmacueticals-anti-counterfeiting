@@ -1,4 +1,62 @@
+
 <x-dashboard>
+    <script src="{{asset('assets/js/ethers.js')}}"></script>
+    <script>
+        var provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:7545', {
+            chainId: 1337
+        });
+        console.log('tait')
+        var contractABI = JSON.parse( @json(contractABI())).abi; // Replace with the ABI of your smart contract
+        var contractAddress = JSON.parse( @json(contractAddress())).address
+
+        var privateKey = "{{privateKey()}}"; // Replace with your private key
+
+
+        var wallet = new ethers.Wallet(privateKey, provider);
+        // Create a contract instance and connect it to the signer
+        var contract = new ethers.Contract(contractAddress, contractABI, wallet);
+        var signer = provider.getSigner();
+        // Get the address of the account
+
+
+        function isConnected  ()  {
+            return signer.getAddress().then((result) => {
+                console.log(result)
+            }).catch((error) => {
+                alert('Error retrieving connected account');
+            })
+        }
+
+        function verifyProd(productId = '', pharmacy = '', serial = '') {
+            document.getElementById(`btnVerify${productId}`).setAttribute('style', 'display:none')
+            if (isConnected()) {
+                contract.addVerification(productId, pharmacy, serial).then((res) => {
+
+                    console.log(res)
+                    const verifyURL = "{{ url('/') }}"
+
+                    $.ajax({
+                        url: `${verifyURL}/store-token/${productId}`,
+                        method: 'GET',
+                        data: {token: res.hash},
+                        success: function (response) {
+                            window.location.href = `${verifyURL}/stocks`
+                        }
+                    });
+                })
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
     <div class="row">
         <div class="col-sm-12">
             <div class="card card-table">
@@ -341,8 +399,10 @@ console.log(response.product)
                 })[0].click();
 
         }
+
+
     </script>
-    <x-blockchainjs/>
+
 
 
 </x-dashboard>

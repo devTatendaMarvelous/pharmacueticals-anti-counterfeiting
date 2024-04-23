@@ -13,6 +13,7 @@ class StocksController extends Controller
      */
     public function index()
     {
+
         $stock=Stock::where('pharmacy_id',auth()->user()->agent->id)->get();
         return view('stock.index')->with('stock',$stock);
     }

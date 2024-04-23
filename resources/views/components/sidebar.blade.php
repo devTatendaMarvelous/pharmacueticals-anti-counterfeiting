@@ -138,7 +138,7 @@
                         @endif
 
 
-                        @if (Auth::user()->type!=='Client')
+                        @if (Auth::user()->type!=='Client' and Auth::user()->type!='Manufacturer')
                             <li class="sidebar-list">
                                 <a class="sidebar-link sidebar-title" href="javascript:void(0)">
                                     <i class="ri-archive-line"></i>

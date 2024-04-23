@@ -76,7 +76,7 @@ class AgentsController extends Controller
                 return redirect()->back();
             }
             if($request->has('blockchain_private_key')){
-                $agent['blockchain_private_key']=Crypt::encrypt($request->blockchain_private_key);
+                $agent['blockchain_private_key']=$request->blockchain_private_key;
 
             }
             if($request->has('blockchain_address')){
@@ -138,7 +138,7 @@ dd($e->getMessage());
                 => 'required',
             ]);
             if($request->has('blockchain_private_key')){
-                $agent['blockchain_private_key']=Crypt::encrypt($request->blockchain_private_key);
+                $agent['blockchain_private_key']=$request->blockchain_private_key;
 
             }
             if($request->has('blockchain_address')){

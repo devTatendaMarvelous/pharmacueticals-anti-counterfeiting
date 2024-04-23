@@ -33,7 +33,7 @@ function address(){
 }
 function privateKey(){
     if (auth()->check()&&auth()->user()->type=='Agent'){
-        return Crypt::decrypt(  auth()->user()->agent->blockchain_private_key);
+        return auth()->user()->agent->blockchain_private_key;
     }else{
         return '';
     }
