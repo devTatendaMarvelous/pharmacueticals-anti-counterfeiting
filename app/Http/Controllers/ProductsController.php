@@ -40,11 +40,12 @@ class ProductsController extends Controller
                 "manufactured_date" => "required",
                 "expiry_date" => "required"
             ]);
-            if (strlen( $product['serial'] )<6 and strlen($product['serial'])>9 ){
+            if (strlen( $product['serial'] ) < 6 or strlen($product['serial'])>9 ){
 
                 Toastr::error('Batch number must be between 6 and 9', 'error');
                 return back();
             }
+
             $product['manufacturer_id'] = auth()->user()->manufacturer->id;
             if ($request->has('product_photo')) {
                 $product['product_photo'] = $request->file('product_photo')->store('productPhotos', 'public');
