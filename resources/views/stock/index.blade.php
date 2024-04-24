@@ -71,16 +71,7 @@
                             </a>
                         </div>
 
-                        <div class="right-options">
-                            <ul>
-                                <li>
-                                    <a href="javascript:void(0)">import</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Export</a>
-                                </li>
-                            </ul>
-                        </div>
+
                     </div>
                     <div>
                         <div class="table-responsive">
