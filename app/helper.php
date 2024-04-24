@@ -60,16 +60,18 @@ function settleSales()
 
         $order = Order::where('cart_id', $item->cart_id)->first();
 
-        $order_id = $order->id;
+        if($order){
+            $order_id = $order->id;
 
-        $sale_amount = $product->selling_price * $item->quantity;
-        $agent_id = $product->pharmacy->id;
+            $sale_amount = $product->selling_price * $item->quantity;
+            $agent_id = $product->pharmacy->id;
 
-        $sale = Sale::create([
-            'order_id' => $order_id,
-            'sales_amount' => $sale_amount,
-            'pharmacy_id' => $agent_id
-        ]);
+            $sale = Sale::create([
+                'order_id' => $order_id,
+                'sales_amount' => $sale_amount,
+                'pharmacy_id' => $agent_id
+            ]);
+        }
 
         $item->is_settled = 1;
         $item->save();
