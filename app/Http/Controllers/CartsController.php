@@ -189,11 +189,7 @@ class CartsController extends Controller
     {
         try {
             $item=CartItem::find($id);
-            $product=Product::find($item->product_id);
 
-
-            $product->quantity+=$item->quantity;
-            $product->save();
             $item->delete();
             Toastr::success('Item removed successfully ', 'success');
             return back();
