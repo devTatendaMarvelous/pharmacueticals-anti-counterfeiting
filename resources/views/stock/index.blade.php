@@ -333,7 +333,7 @@
         const checkSerial = () =>{
             const serial=$('#serial').val()
             if(serial.length < 9){
-               $('#serial-error').text("Serial Number must be at least 9 characters")
+               $('#serial-error').text("Batch Number must be at least 9 characters")
                 $('#stock-data').hide()
                 $('#add-btn').hide()
             }else{
