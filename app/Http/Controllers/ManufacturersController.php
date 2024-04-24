@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agent;
 use App\Models\Manufacturer;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
@@ -97,10 +98,23 @@ class ManufacturersController extends Controller
     public function update(Request $request, string $id)
     {
         try {
+            DB::beginTransaction();
+            $manufacturer = $request->all();
+            $man= Manufacturer::find($id);
 
-                DB::beginTransaction();
-                $manufacturer = $request->all();
-               $man= Manufacturer::find($id);
+            if (Agent::where('tel',$manufacturer['tel'])->orWhere('cell', $manufacturer['tel'])->exists() or  Manufacturer::where('tel',$manufacturer['tel'])->whereNot('id',$id)->exists()){
+                Toastr::error('Phone number already in use', 'Phone number in use');
+                return redirect()->back();
+            }
+            if (strlen($manufacturer['tel']) < 9){
+                Toastr::error('Phone number cannot be less than 9 digits', 'Phone number too short');
+                return redirect()->back();
+            }elseif (strlen($manufacturer['tel']) > 10){
+                Toastr::error('Phone number cannot be more than 10 digits', 'Phone number too long');
+                return redirect()->back();
+            }
+
+
             $man->update($manufacturer);
                 $man->user->update($manufacturer);
                 Toastr::success('Manufacturer Account updated successfully', 'success');
