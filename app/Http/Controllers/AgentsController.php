@@ -143,7 +143,7 @@ class AgentsController extends Controller
                 => 'required',
             ]);
 
-            if (Manufacturer::where('tel',$agent['tel'])->orWhere('tel',$agent['cell'])->exists() or Agent::where('tel',$agent['tel'])->orWhere('tel',$agent['cell'])->whereNot('id',$id)->exists()){
+            if (Manufacturer::where('tel',$agent['tel'])->orWhere('tel',$agent['cell'])->exists() or Agent::where('tel',$agent['tel'])->orWhere('cell',$agent['cell'])->whereNot('id',$id)->exists()){
                 Toastr::error('Phone number already in use', 'Phone number in use');
                 return redirect()->back();
             }
