@@ -30,7 +30,7 @@
                                                             </td>
                                                             <td>{{ $req->stock->product->product_name }}</td>
                                                             <td>{{ $req->stock->pharmacy->user->name }}</td>
-                                                            <td class="td-price">${{ $req->stock->product->manufacturer->user->name }}</td>
+                                                            <td class="td-price">{{ $req->stock->product->manufacturer->user->name }}</td>
                                                             <td>
                                                                 <p class="
                                                             @if ($req->stock->product_status==='Low')

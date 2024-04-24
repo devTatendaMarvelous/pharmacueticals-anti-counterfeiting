@@ -99,7 +99,7 @@ class AgentsController extends Controller
             return redirect('pharmacies');
         } catch (\Exception $e) {
             DB::rollBack();
-dd($e->getMessage());
+
             Toastr::error('An error occured while processing', 'error');
             return back();
         }
@@ -142,6 +142,25 @@ dd($e->getMessage());
                 'agent_description'
                 => 'required',
             ]);
+
+            if (Manufacturer::where('tel',$agent['tel'])->orWhere('tel',$agent['cell'])->exists() or Agent::where('tel',$agent['tel'])->orWhere('tel',$agent['cell'])->whereNot('id',$id)->exists()){
+                Toastr::error('Phone number already in use', 'Phone number in use');
+                return redirect()->back();
+            }
+            if (strlen($agent['tel']) < 9){
+                Toastr::error('Phone number cannot be less than 9 digits', 'Phone number too short');
+                return redirect()->back();
+            }elseif (strlen($agent['tel']) > 10){
+                Toastr::error('Phone number cannot be more than 10 digits', 'Phone number too long');
+                return redirect()->back();
+            }else if (strlen($agent['cell']) < 9){
+                Toastr::error('Phone number cannot be less than 9 digits', 'Phone number too short');
+                return redirect()->back();
+            }elseif (strlen($agent['cell']) > 10){
+                Toastr::error('Phone number cannot be more than 10 digits', 'Phone number too long');
+                return redirect()->back();
+            }
+
             if($request->has('blockchain_private_key')){
                 $agent['blockchain_private_key']=$request->blockchain_private_key;
 
