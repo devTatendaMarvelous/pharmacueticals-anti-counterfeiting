@@ -129,12 +129,13 @@ class AgentsController extends Controller
     public function update(Request $request, string $id)
     {
         try {
+
             DB::beginTransaction();
             $agent = $request->validate([
                 'name' => 'required',
                 'email' => 'required',
                 'tel' =>
-                'required',
+                    'required',
                 'cell'
                 => 'required',
                 'agent_address'
@@ -143,10 +144,20 @@ class AgentsController extends Controller
                 => 'required',
             ]);
 
-            if (Manufacturer::where('tel',$agent['tel'])->orWhere('tel',$agent['cell'])->exists() or Agent::where('tel',$agent['tel'])->orWhere('cell',$agent['cell'])->whereNot('id',$id)->exists()){
+            if (Manufacturer::where('tel',$agent['tel'])->orWhere('tel',$agent['cell'])->exists()) {
                 Toastr::error('Phone number already in use', 'Phone number in use');
                 return redirect()->back();
             }
+            $pharm = Agent::where('tel','=',$agent['tel'])->orWhere('cell','=',$agent['cell'])->first();
+
+            if($pharm){
+                if ( $pharm->id != $id){
+                    Toastr::error('Phone number already in use', 'Phone number in use');
+                    return redirect()->back();
+                }
+            }
+
+
             if (strlen($agent['tel']) < 9){
                 Toastr::error('Phone number cannot be less than 9 digits', 'Phone number too short');
                 return redirect()->back();
@@ -184,7 +195,6 @@ class AgentsController extends Controller
             return back();
         }
     }
-
     /**
      * Remove the specified resource from storage.
      */
