@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Manufacturer;
 use App\Models\User;
 use App\Models\Agent;
 use App\Models\AgentType;
@@ -62,6 +63,10 @@ class AgentsController extends Controller
                 'agent_description'
                 => 'required',
             ]);
+            if (Manufacturer::where('tel',$agent['tel'])->orWhere('tel',$agent['cell'])->exists()){
+                Toastr::error('Phone number already in use', 'Phone number in use');
+                return redirect()->back();
+            }
             if (strlen($agent['tel']) < 9){
                 Toastr::error('Phone number cannot be less than 9 digits', 'Phone number too short');
                 return redirect()->back();

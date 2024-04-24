@@ -40,7 +40,11 @@ class ManufacturersController extends Controller
             DB::beginTransaction();
 
         $manufacturer = $request->all();
-//        dd(strlen($manufacturer['tel']));
+
+                if (Agent::where('tel',$manufacturer['tel'])->orWhere('cell', $manufacturer['tel'])->exists()){
+                    Toastr::error('Phone number already in use', 'Phone number in use');
+                    return redirect()->back();
+                }
                 if (strlen($manufacturer['tel']) < 9){
                     Toastr::error('Phone number cannot be less than 9 digits', 'Phone number too short');
                     return redirect()->back();
