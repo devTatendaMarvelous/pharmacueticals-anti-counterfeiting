@@ -23,11 +23,7 @@
 
         <div class="nav-right col-6 pull-right right-header p-0">
             <ul class="nav-menus">
-                <li>
-                    <div class="mode">
-                        <i class="ri-moon-line"></i>
-                    </div>
-                </li>
+
                 <li class="profile-nav onhover-dropdown pe-0 me-0">
                     <div class="media profile-media">
                         <img class="user-profile rounded-circle"
