@@ -70,7 +70,7 @@
                 <div class="text-danger d-flex justify-content-center px-5" id="error"></div>
                 <div class=" d-flex justify-content-center" id="content-area">
                     <div class=" card px-5 py-3 mb-5 "  id="form">
-                        <h3 class="p-3">Scan QR Code</h3>
+                        <h3 class="p-3">Upload QR Code</h3>
                         <div class="qr-container  col-12">
                             <div class="section">
                                 <div id="my-qr-reader">
