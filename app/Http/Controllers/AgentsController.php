@@ -62,6 +62,10 @@ class AgentsController extends Controller
                 => 'required',
                 'agent_description'
                 => 'required',
+                'blockchain_private_key'
+                => 'required|unique:agents',
+                'blockchain_address'
+                => 'required|unique:agents',
             ]);
             if (Manufacturer::where('tel',$agent['tel'])->orWhere('tel',$agent['cell'])->exists()){
                 Toastr::error('Phone number already in use', 'Phone number in use');
@@ -80,13 +84,7 @@ class AgentsController extends Controller
                 Toastr::error('Phone number cannot be more than 10 digits', 'Phone number too long');
                 return redirect()->back();
             }
-            if($request->has('blockchain_private_key')){
-                $agent['blockchain_private_key']=$request->blockchain_private_key;
 
-            }
-            if($request->has('blockchain_address')){
-                $agent['blockchain_address']=Crypt::encrypt($request->blockchain_address);
-            }
 
             $agent['type'] = 'Agent';
             $agent['photo'] = $request->file('photo')->store('agentLogos', 'public');
@@ -177,7 +175,7 @@ class AgentsController extends Controller
 
             }
             if($request->has('blockchain_address')){
-                $agent['blockchain_address']=Crypt::encrypt($request->blockchain_address);
+                $agent['blockchain_address']=$request->blockchain_address;
             }
             $agentAccount = User::where('email', $agent['email'])->get()[0];
 
