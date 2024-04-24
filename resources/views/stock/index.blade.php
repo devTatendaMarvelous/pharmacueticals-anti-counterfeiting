@@ -181,18 +181,7 @@
                                                             </li>
                                                         @endif
                                                     @endif
-                                                <li>
-                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                       data-bs-target="#updateProduct{{ $product->id }}">
-                                                        <i class="ri-pencil-line"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                       data-bs-target="#exampleModalToggle">
-                                                        <i class="ri-delete-bin-line"></i>
-                                                    </a>
-                                                </li>
+
                                             </ul>
                                         </td>
                                         <!-- Delete Modal Box Start -->

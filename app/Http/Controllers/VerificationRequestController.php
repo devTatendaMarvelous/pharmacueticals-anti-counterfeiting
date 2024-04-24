@@ -23,18 +23,15 @@ class VerificationRequestController extends Controller
 
     public function reject(Request $request, $id)
     {
-        if ($request->notes) {
-            $data = $request->validate(['notes' => 'required']);
+
+
             $req = VerificationRequest::find($id);
             $data['status'] = 'reversed';
             Stock::find($req->stock_id)->update(['is_verified' => 0]);
             $req->update($data);
             Toastr::success('Request has been rejected successfully', 'success');
             return back();
-        } else {
-            Toastr::error('Provide reason for  rejection ', 'error');
-            return back();
-        }
+
 
     }
 

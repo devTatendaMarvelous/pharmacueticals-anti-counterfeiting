@@ -22,13 +22,14 @@
                 <div id="sidebar-menu">
                     <ul class="sidebar-links" id="simple-bar">
                         <li class="back-btn"></li>
-
+                        @if (Auth::user()->type!='Client')
                         <li class="sidebar-list">
                             <a class="sidebar-link sidebar-title link-nav" href="/home">
                                 <i class="ri-home-line"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
+                        @endif
                         @if (Auth::user()->type==='Client')
                             <li class="sidebar-list">
                                 <a class="linear-icon-link sidebar-link sidebar-title" href="/">

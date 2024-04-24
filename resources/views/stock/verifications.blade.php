@@ -71,14 +71,13 @@
                                                                     <div class="modal-body">
                                                                         <h5 class="modal-title" id="staticBackdropLabel">Reject Verification For {{  $req->stock->product->product_name  }}</h5>
                                                                         <p>Are you sure you want to reject?</p>
-                                                                        <p>If so enter the reason for rejection below</p>
 
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                         <div class="button-box ">
 
                                                                             <form action="{{ route('verifications.reject',[$req->id]) }}" method="POST" >
                                                                                 @csrf
-                                                                                <textarea class="form-control d-flex" style="width: 100%;" placeholder="Rejection notes" name="notes"></textarea>
+
                                                                                 <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
                                                                                 <button type="submit" class="btn  btn--yes btn-primary">Reject</button>
                                                                             </form>
