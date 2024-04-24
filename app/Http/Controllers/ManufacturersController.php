@@ -42,10 +42,10 @@ class ManufacturersController extends Controller
 
         $manufacturer = $request->all();
 
-//                if (Agent::where('tel',$manufacturer['tel'])->orWhere('cell', $manufacturer['tel'])->exists()){
-//                    Toastr::error('Phone number already in use', 'Phone number in use');
-//                    return redirect()->back();
-//                }
+                if (Agent::where('tel',$manufacturer['tel'])->orWhere('cell', $manufacturer['tel'])->exists()){
+                    Toastr::error('Phone number already in use', 'Phone number in use');
+                    return redirect()->back();
+                }
                 if (strlen($manufacturer['tel']) < 9){
                     Toastr::error('Phone number cannot be less than 9 digits', 'Phone number too short');
                     return redirect()->back();
@@ -102,10 +102,10 @@ class ManufacturersController extends Controller
             $manufacturer = $request->all();
             $man= Manufacturer::find($id);
 
-//            if (Agent::where('tel',$manufacturer['tel'])->orWhere('cell', $manufacturer['tel'])->exists() or  Manufacturer::where('tel',$manufacturer['tel'])->whereNot('id',$id)->exists()){
-//                Toastr::error('Phone number already in use', 'Phone number in use');
-//                return redirect()->back();
-//            }
+            if (Agent::where('tel',$manufacturer['tel'])->orWhere('cell', $manufacturer['tel'])->exists() or  Manufacturer::where('tel',$manufacturer['tel'])->whereNot('id',$id)->exists()){
+                Toastr::error('Phone number already in use', 'Phone number in use');
+                return redirect()->back();
+            }
             if (strlen($manufacturer['tel']) < 9){
                 Toastr::error('Phone number cannot be less than 9 digits', 'Phone number too short');
                 return redirect()->back();
@@ -149,13 +149,14 @@ class ManufacturersController extends Controller
         $rules = [
             'name' => 'required',
             'email' => 'required',
-            'tel' =>  ['required','unique:agents','numeric'],
+            'tel' =>  ['required','unique:manufacturers','numeric'],
             'address' => 'required',
 
         ];
 
         $customMessages = [
             'tel.numeric' => 'phone number can only contain numeric characters',
+            'tel.unique' => 'phone number already in use',
         ];
         $validator = Validator::make($request->all(), $rules, $customMessages);
         if ($validator->fails()) {
