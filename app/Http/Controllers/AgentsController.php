@@ -86,7 +86,6 @@ class AgentsController extends Controller
                 return redirect()->back();
             }
 
-
             $agent['type'] = 'Agent';
             $agent['photo'] = $request->file('photo')->store('agentLogos', 'public');
             $agent['password'] = Hash::make($agent['password']);
