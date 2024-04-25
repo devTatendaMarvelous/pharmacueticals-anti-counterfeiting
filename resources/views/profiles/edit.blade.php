@@ -53,7 +53,7 @@
                                              <div class="col-sm-10">
                                              <input class="form-control" type="password"
                                                   placeholder="Enter Your Password" onkeyup="checkPass()"  id="passwordInput">
-                                                 <p  id="passwordMessage2" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
+                                                 <p  id="passwordMessage" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
                                              </div>
                                         </div>
 
@@ -111,7 +111,6 @@
                 isValid = false;
 
             }
-
 
             return isValid;
         }
