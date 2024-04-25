@@ -48,14 +48,14 @@
                     <input id="password-field" type="password"
                            class="form-control @error('password') is-invalid @enderror" name="password" required
                            autocomplete="current-password" onkeyup="checkPass()">
-
+                    <p  id="passwordMessage" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
                     @error('password')
                     <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                     @enderror
                     <label for="password">Password</label>
-                    <p  id="passwordMessage" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
+
                 </div>
             </div>
 
@@ -64,9 +64,10 @@
 
                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
                            required autocomplete="new-password" onkeyup="checkPass(2)">
+                    <p  id="passwordMessage2" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
                     <label for="password">Confirm Password</label>
 
-                    <p  id="passwordMessage2" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
+
                 </div>
             </div>
 
