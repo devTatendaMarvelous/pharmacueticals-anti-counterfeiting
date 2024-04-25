@@ -61,9 +61,13 @@ class AgentsController extends Controller
                 =>  ['required','unique:agents','numeric'],
                 'agent_address' => 'required',
                 'agent_description' => 'required',
-                'blockchain_private_key' => 'required|unique:agents',
-                'blockchain_address' => 'required|unique:agents',
+                'blockchain_private_key' => 'required',
+                'blockchain_address' => 'required',
             ]);
+            if (Agent::where('blockchain_address',$agent['blockchain_address'])->orWhere('blockchain_private_key',$agent['blockchain_private_key'])->exists()){
+                Toastr::error('Blockchain details provided are already in use', 'Blockchain details in use');
+                return redirect()->back();
+            }
             if (Manufacturer::where('tel',$agent['tel'])->orWhere('tel',$agent['cell'])->exists()){
                 Toastr::error('Phone number already in use', 'Phone number in use');
                 return redirect()->back();
@@ -94,7 +98,6 @@ class AgentsController extends Controller
             return redirect('pharmacies');
         } catch (\Exception $e) {
             DB::rollBack();
-
             Toastr::error('An error occured while processing', 'error');
             return back();
         }
