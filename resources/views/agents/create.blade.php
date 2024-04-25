@@ -163,7 +163,7 @@
                                                   <div class="mb-4 row align-items-center">
                                                        <div class="col-md-9 col-lg-10">
                                                             <div class="col-md-6"></div>
-                                                            <input type="submit" class="btn btn-primary" value="Create">
+                                                            <input type="submit"  id="btn-submit" class="btn btn-primary" value="Create" style="display: none;">
                                                        </div>
                                                   </div>
                                              </div>
@@ -186,7 +186,10 @@
 
                 if (isValid) {
                     $(`#passwordMessage${num}`).hide();
+
+                    $(`#btn-submit`).show();
                 } else {
+                    $(`#btn-submit`).hide();
                     $(`#passwordMessage${num}`).show();
                 }
             }

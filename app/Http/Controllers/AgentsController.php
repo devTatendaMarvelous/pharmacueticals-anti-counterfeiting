@@ -98,7 +98,6 @@ class AgentsController extends Controller
             return redirect('pharmacies');
         } catch (\Exception $e) {
             DB::rollBack();
-            dd($e->getMessage());
             Toastr::error('An error occured while processing', 'error');
             return back();
         }
