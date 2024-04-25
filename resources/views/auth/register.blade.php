@@ -47,7 +47,7 @@
                 <div class="form-floating theme-form-floating log-in-form">
                     <input id="password-field" type="password"
                            class="form-control @error('password') is-invalid @enderror" name="password" required
-                           autocomplete="current-password">
+                           autocomplete="current-password" onkeyup="checkPass()">
 
                     @error('password')
                     <span class="invalid-feedback" role="alert">
@@ -56,15 +56,18 @@
                     @enderror
                     <label for="password">Password</label>
                 </div>
+                <p  id="passwordMessage" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
             </div>
 
             <div class="col-12">
                 <div class="form-floating theme-form-floating log-in-form">
 
                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                           required autocomplete="new-password">
+                           required autocomplete="new-password" onkeyup="checkPass(2)">
                     <label for="password">Confirm Password</label>
+
                 </div>
+                <p  id="passwordMessage2" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
             </div>
 
             <div class="col-12">
@@ -73,5 +76,40 @@
             </div>
         </form>
     </div>
+    <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
+    <script>
 
+        function checkPass(num=''){
+
+            let password = $(`#passwordInput${num}`).val();
+
+            const isValid = validatePassword(password);
+
+            if (isValid) {
+                $(`#passwordMessage${num}`).hide();
+
+                $(`#btn-submit`).show();
+            } else {
+                $(`#btn-submit`).hide();
+                $(`#passwordMessage${num}`).show();
+            }
+        }
+
+        function validatePassword(password) {
+            console.log(password)
+            let isValid = true;
+            if (password.length < 8 ||
+                !/[a-z]/.test(password) ||
+                !/[A-Z]/.test(password) ||
+                !/\d/.test(password) ||
+                !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
+                isValid = false;
+
+            }
+
+
+            return isValid;
+        }
+
+    </script>
 @endsection
