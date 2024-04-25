@@ -53,19 +53,16 @@ class AgentsController extends Controller
             $agent = $request->validate([
                 'name' => 'required',
                 'email' => 'required',
+                'photo' => 'required',
                 'password' => ['required', 'confirmed'],
                 'tel' =>
                 ['required','unique:agents','numeric'],
                 'cell'
                 =>  ['required','unique:agents','numeric'],
-                'agent_address'
-                => 'required',
-                'agent_description'
-                => 'required',
-                'blockchain_private_key'
-                => 'required|unique:agents',
-                'blockchain_address'
-                => 'required|unique:agents',
+                'agent_address' => 'required',
+                'agent_description' => 'required',
+                'blockchain_private_key' => 'required|unique:agents',
+                'blockchain_address' => 'required|unique:agents',
             ]);
             if (Manufacturer::where('tel',$agent['tel'])->orWhere('tel',$agent['cell'])->exists()){
                 Toastr::error('Phone number already in use', 'Phone number in use');

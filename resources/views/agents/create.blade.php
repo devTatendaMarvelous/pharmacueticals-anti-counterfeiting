@@ -70,9 +70,9 @@
                                                             <label
                                                                  class="col-lg-2 col-md-3 col-form-label form-label-title">Password</label>
                                                             <div class="col-md-9 col-lg-10">
-                                                                 <input class="form-control" id="passwordMessage" name="password" type="password" required>
+                                                                 <input class="form-control " id="passwordInput" onkeyup="checkPass()"  name="password" type="password" required>
 
-                                                                <p class="passwordMessage text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
+                                                                <p id="passwordMessage" class=" text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
 
                                                                 @error('password')
                                                                  <p class="text-danger">{{ $message }}</p>
@@ -85,8 +85,8 @@
                                                             <label class="col-lg-2 col-md-3 col-form-label form-label-title">Confirm
                                                                  Password</label>
                                                             <div class="col-md-9 col-lg-10">
-                                                                 <input class="form-control" id="passwordInput2" name="password_confirmation" type="password" required>
-                                                                <p  id="passwordMessage2 " class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
+                                                                 <input class="form-control" id="passwordInput2" onkeyup="checkPass(2)" name="password_confirmation" type="password" required>
+                                                                <p  id="passwordMessage2" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
                                                             </div>
                                                        </div>
                                                        </div>
@@ -175,34 +175,37 @@
                </div>
           </div>
      </div>
-
+    <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
     <script>
-        $(document).ready(function() {
-            $("#passwordInput").on("input", function() {
-                const password = $(this).val();
+
+            function checkPass(num=''){
+
+                let password = $(`#passwordInput${num}`).val();
+
                 const isValid = validatePassword(password);
 
                 if (isValid) {
-                    $("#passwordMessage").hide();
+                    $(`#passwordMessage${num}`).hide();
                 } else {
-                    $("#passwordMessage").show();
+                    $(`#passwordMessage${num}`).show();
                 }
-            });
-            $("#passwordInput2").on("input", function() {
-                const password = $(this).val();
-                const isValid = validatePassword(password);
-
-                if (isValid) {
-                    $("#passwordMessage2").hide();
-                } else {
-                    $("#passwordMessage2").show();
-                }
-            });
+            }
 
             function validatePassword(password) {
-                const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)(?!.*\s).{8,}$/;
-                return regex.test(password);
+                console.log(password)
+                let isValid = true;
+                    if (password.length < 8 ||
+                        !/[a-z]/.test(password) ||
+                        !/[A-Z]/.test(password) ||
+                        !/\d/.test(password) ||
+                        !/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
+                        isValid = false;
+
+                    }
+
+
+                return isValid;
             }
-        });
+
     </script>
 </x-dashboard>
