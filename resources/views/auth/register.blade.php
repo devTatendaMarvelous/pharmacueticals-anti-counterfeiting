@@ -71,7 +71,7 @@
             </div>
 
             <div class="col-12">
-                <button class="btn btn-animation w-100 justify-content-center theme-bg-color" type="submit">Create
+                <button class="btn btn-animation w-100 justify-content-center theme-bg-color" type="submit" id="btn-submit" style="display: none;">Create
                 </button>
             </div>
         </form>
