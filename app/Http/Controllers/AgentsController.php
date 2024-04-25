@@ -64,6 +64,7 @@ class AgentsController extends Controller
                 'blockchain_private_key' => 'required',
                 'blockchain_address' => 'required',
             ]);
+
             if (Agent::where('blockchain_address',$agent['blockchain_address'])->orWhere('blockchain_private_key',$agent['blockchain_private_key'])->exists()){
                 Toastr::error('Blockchain details provided are already in use', 'Blockchain details in use');
                 return redirect()->back();
@@ -88,7 +89,7 @@ class AgentsController extends Controller
 
             $agent['type'] = 'Agent';
             $agent['photo'] = $request->file('photo')->store('agentLogos', 'public');
-            $agent['password'] = Hash::make($agent['password']);
+            $agent['password'] = Hash::make($request->password);
             $user = User::create($agent);
             $agent['user_id'] = $user->id;
             Agent::create($agent);
@@ -97,6 +98,7 @@ class AgentsController extends Controller
             return redirect('pharmacies');
         } catch (\Exception $e) {
             DB::rollBack();
+            dd($e->getMessage());
             Toastr::error('An error occured while processing', 'error');
             return back();
         }
