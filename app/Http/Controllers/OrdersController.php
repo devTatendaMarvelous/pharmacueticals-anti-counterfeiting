@@ -113,7 +113,7 @@ class OrdersController extends Controller
                     }
 
                 } else {
-                    Toastr::error('Card card details  not found', 'error');
+                    Toastr::error('Card  details  not found', 'error');
                     return back();
                 }
             }else{

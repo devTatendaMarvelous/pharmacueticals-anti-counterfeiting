@@ -70,8 +70,11 @@
                                                             <label
                                                                  class="col-lg-2 col-md-3 col-form-label form-label-title">Password</label>
                                                             <div class="col-md-9 col-lg-10">
-                                                                 <input class="form-control" name="password" type="password" required>
-                                                                 @error('password')
+                                                                 <input class="form-control" id="passwordMessage" name="password" type="password" required>
+
+                                                                <p class="passwordMessage text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
+
+                                                                @error('password')
                                                                  <p class="text-danger">{{ $message }}</p>
                                                                  @enderror
                                                             </div>
@@ -79,11 +82,11 @@
 
                                                        <div class="row align-items-center">
                                                             <div class="row align-items-center">
-                                                            <label
-                                                                 class="col-lg-2 col-md-3 col-form-label form-label-title">Confirm
+                                                            <label class="col-lg-2 col-md-3 col-form-label form-label-title">Confirm
                                                                  Password</label>
                                                             <div class="col-md-9 col-lg-10">
-                                                                 <input class="form-control" name="password_confirmation" type="password" required>
+                                                                 <input class="form-control" id="passwordInput2" name="password_confirmation" type="password" required>
+                                                                <p  id="passwordMessage2 " class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
                                                             </div>
                                                        </div>
                                                        </div>
@@ -172,4 +175,34 @@
                </div>
           </div>
      </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#passwordInput").on("input", function() {
+                const password = $(this).val();
+                const isValid = validatePassword(password);
+
+                if (isValid) {
+                    $("#passwordMessage").hide();
+                } else {
+                    $("#passwordMessage").show();
+                }
+            });
+            $("#passwordInput2").on("input", function() {
+                const password = $(this).val();
+                const isValid = validatePassword(password);
+
+                if (isValid) {
+                    $("#passwordMessage2").hide();
+                } else {
+                    $("#passwordMessage2").show();
+                }
+            });
+
+            function validatePassword(password) {
+                const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)(?!.*\s).{8,}$/;
+                return regex.test(password);
+            }
+        });
+    </script>
 </x-dashboard>
