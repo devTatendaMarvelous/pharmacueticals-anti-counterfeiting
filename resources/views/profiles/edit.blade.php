@@ -66,13 +66,17 @@
                                                  <p  id="passwordMessage2" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
                                              </div>
                                         </div>
+                                       <div class="mb-4 row align-items-center">
+                                           <div class="col-md-9 col-lg-10">
+                                               <div class="col-md-6"></div>
+                                               <input type="submit"  id="btn-submit" class="btn btn-primary" value="Create" style="display: none;">
+                                           </div>
+                                       </div>
                                    </div>
                               </form>
                          </div>
                          </div>
                          <!-- Details End -->
-
-
                     </div>
                </div>
           </div>
