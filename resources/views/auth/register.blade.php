@@ -55,8 +55,8 @@
                                             </span>
                     @enderror
                     <label for="password">Password</label>
+                    <p  id="passwordMessage" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
                 </div>
-                <p  id="passwordMessage" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
             </div>
 
             <div class="col-12">
@@ -66,8 +66,8 @@
                            required autocomplete="new-password" onkeyup="checkPass(2)">
                     <label for="password">Confirm Password</label>
 
+                    <p  id="passwordMessage2" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
                 </div>
-                <p  id="passwordMessage2" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
             </div>
 
             <div class="col-12">
