@@ -45,9 +45,9 @@
 
             <div class="col-12">
                 <div class="form-floating theme-form-floating log-in-form">
-                    <input id="password-field" type="password"
+                    <input type="password"
                            class="form-control @error('password') is-invalid @enderror" name="password" required
-                           autocomplete="current-password" onkeyup="checkPass()">
+                           autocomplete="current-password" onkeyup="checkPass()"  id="passwordInput" >
                     <p  id="passwordMessage" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
                     @error('password')
                     <span class="invalid-feedback" role="alert">
@@ -62,8 +62,8 @@
             <div class="col-12">
                 <div class="form-floating theme-form-floating log-in-form">
 
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                           required autocomplete="new-password" onkeyup="checkPass(2)">
+                    <input  type="password" class="form-control" name="password_confirmation"
+                           required autocomplete="new-password" onkeyup="checkPass(2)"  id="passwordInput2" >
                     <p  id="passwordMessage2" class="text-danger" style="display: none;" >Password must have a number, Uppercase and a special  character</p>
                     <label for="password">Confirm Password</label>
 
